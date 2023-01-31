@@ -1,0 +1,171 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333333;
+    background-color: white;
+    font-size: 13px;
+}
+
+header {
+    margin: 0 auto;
+    padding: 90px;
+    background: url("../assets/images/mountains.jpg") no-repeat center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+header h1 {
+    font-size: 70px;
+    font-weight: 700;
+    color: #1C2B32;
+}
+
+header p {
+    margin-bottom: 32px;
+}
+
+.header-section-container {
+    text-align: center;
+}
+
+#domain-input-wrapper {
+    display: inline-flex;
+    flex-flow: row;
+    border: 2px solid #1C2B32;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+#domain-input-wrapper input {
+    width: 210px;
+    padding: 20px;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+#domain-input-wrapper input::placeholder {
+    color: #333;
+}
+
+#domain-input-wrapper button {
+    padding: 20px;
+    background: #1C2B32;
+    border: none;
+    color: white;
+}
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+section {
+    border-radius: 10px;
+    margin: 32px;
+    padding: 32px;
+}
+
+section h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+section img {
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin-top: 30px;
+}
+
+a {
+    text-decoration: underline;
+    color: grey;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.testimonial-article {
+    border-radius: 5px;
+    margin-bottom: 60px;
+    margin-top: 60px;
+    padding: 20px 60px;
+    box-shadow: 3px 3px 10px 5px lightgray;
+}
+
+.testimonial-article blockquote {
+    position: relative;
+    left: 45px;
+    bottom: -30px;
+}
+
+.testimonial-article blockquote img {
+    position: absolute;
+    left: -50px;
+    top: -40px;
+}
+
+.testimonial-article blockquote span {
+    display: block;
+    margin-right: 16px;
+}
+
+.testimonial-article p img {
+    margin: 25px;
+    vertical-align: middle;
+    width: 44px;
+}
+
+.testimonial-article p {
+    font-style: italic;
+    padding-top: 20px;
+    margin-left: 15px;
+}
+
+section button {
+    font-size: 12px;
+    padding: 15px;
+    background: #1C2B32;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+details {
+    padding: 12px 0;
+}
+
+details p {
+    background-color: #899CA0;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+}
+
+details > summary {
+    cursor: pointer;
+}
+
+footer {
+    font-size: 11px;
+    background-color: #1C2B32;
+    height: 65px;
+    color: white;
+    text-align: center;
+}
+
+footer p {
+    padding: 23px;
+}
