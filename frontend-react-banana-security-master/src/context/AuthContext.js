@@ -1,49 +1,66 @@
-import React, {createContext, useContext, useState} from 'react';
-
+import React, {createContext, useContext, useState, useEffect} from 'react';
+import {useHistory} from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 export const AuthContext = createContext({});
 
 export const useAuth = () => {
     return useContext(AuthContext);
 }
 
-function AuthProvider({ children }) {
-    // const [isAuth, setIsAuth] = useState(false);
-const [isAuth, setIsAuth] = useState({
-    isAuthenticated: false,
+const initialAuth = {
+    isAuth: false,
     user: null,
-});
+}
 
-    function login(token) {
+function AuthProvider({ children }) {
+    const [auth, setAuth] = useState(initialAuth);
+    const history = useHistory();
 
-        // we krijgen een token aangeleverd (die we van de backend hebben gehad)
-        // token in de local storage plaatsen
+    function getTokenId(token) {
+        return jwtDecode(token).sub;
+    }
+
+    useEffect(() => {
+        init();
+    },[]);
+
+    async function init() {
+        const token = localStorage.getItem('token');
+        if (token) {
+            await login(token);
+            history.push('/profile');
+        }
+    }
+
+    async function getUserProfile(id) {
+        try {
+            const response = await axios.get(`http://localhost:3000/users/${id}`);
+            return response.data;
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    async function login(token) {
         localStorage.setItem('token', token);
-        console.log("Gebruiker is ingelogd")
-        // inforamtie in de state plaatsen
-        // authentication op true zetten in state
-        setIsAuth({
-            isAuthenticated: true,
-            user: {
-                username: 'pietpieters',
-                email: 'pietpieters@novi.nl'
-            }
+        const userId = getTokenId(token);
+        const user = await getUserProfile(userId);
+
+        setAuth({
+            isAuth: true,
+            user
         });
     }
 
     function logout() {
-
-        //token uit de local storage verwijderen
-        console.log("Gebruiker is uitgelogd")
-        //gebruikers gegevens uit de state verwijderen
-        //authentication op false zetten
-        setIsAuth({
-            isAuthenticated: false,
-            user: null,
-        });
+        localStorage.removeItem('token');
+        setAuth(initialAuth);
     }
 
     const value = {
-        ...isAuth,
+        ...auth,
         login,
         logout,
     }
