@@ -7,8 +7,10 @@ import Dashboard from "pages/Dashboard/Dashboard";
 import {
     LOGIN,
     SIGN_UP,
-    DASHBOARD
+    DASHBOARD,
+    CLIENT_DASHBOARD
 } from "constants/Routes";
+import ClientDashboard from "../../pages/ClientDashboard/ClientDashboard";
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path={LOGIN} element={<Login />} />
         <Route path={SIGN_UP} element={<SignUp />} />
         <Route path={DASHBOARD} element={<Dashboard />} />
+        <Route path={CLIENT_DASHBOARD} element={<ClientDashboard />} />
     </Routes>
   );
 }
