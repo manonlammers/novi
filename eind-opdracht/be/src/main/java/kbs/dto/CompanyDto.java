@@ -1,8 +1,8 @@
-package com.example.eindopdracht.dto;
+package kbs.dto;
 
 public class CompanyDto {
     public Long id;
-    public String companyName;
+    public String name;
     public String emailAddress;
     public int phoneNumber;
     public String address;

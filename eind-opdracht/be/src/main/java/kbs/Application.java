@@ -1,13 +1,13 @@
-package com.example.eindopdracht;
+package kbs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-public class EindopdrachtApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EindopdrachtApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }

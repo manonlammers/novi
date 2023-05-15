@@ -1,5 +1,6 @@
-package com.example.eindopdracht.model;
+package kbs.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,7 +9,8 @@ public class Company {
     @Id
     @GeneratedValue
     private Long id;
-    private String companyName;
+
+    private String name;
     private String emailAddress;
     private int phoneNumber;
     private String address;
@@ -25,12 +27,12 @@ public class Company {
         this.id = id;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmailAddress() {

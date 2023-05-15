@@ -1,8 +1,7 @@
-package com.example.eindopdracht.controller;
+package kbs.controller;
 
-import com.example.eindopdracht.dto.CompanyDto;
-import com.example.eindopdracht.model.Company;
-import com.example.eindopdracht.service.CompanyService;
+import kbs.dto.CompanyDto;
+import kbs.service.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

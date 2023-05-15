@@ -1,6 +1,6 @@
-package com.example.eindopdracht.repository;
+package kbs.repository;
 
-import com.example.eindopdracht.model.Company;
+import kbs.model.Company;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CompanyRepository extends CrudRepository<Company, Long> {

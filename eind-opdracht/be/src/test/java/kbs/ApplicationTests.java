@@ -1,10 +1,10 @@
-package com.example.eindopdracht;
+package kbs;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EindopdrachtApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

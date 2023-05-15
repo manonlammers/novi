@@ -1,4 +1,4 @@
-package com.example.eindopdracht.exception;
+package kbs.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

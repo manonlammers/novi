@@ -1,13 +1,10 @@
-package com.example.eindopdracht.service;
+package kbs.service;
 
-import com.example.eindopdracht.dto.CompanyDto;
-import com.example.eindopdracht.exception.ResourceNotFoundException;
-import com.example.eindopdracht.model.Company;
-import com.example.eindopdracht.repository.CompanyRepository;
+import kbs.dto.CompanyDto;
+import kbs.exception.ResourceNotFoundException;
+import kbs.model.Company;
+import kbs.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CompanyService {
@@ -19,7 +16,7 @@ public class CompanyService {
 
     public Long createCompany(CompanyDto cdto) {
         Company company = new Company();
-        company.setCompanyName(cdto.companyName);
+        company.setName(cdto.name);
 
         repository.save(company);
 
@@ -31,7 +28,7 @@ public class CompanyService {
 
         CompanyDto cdto = new CompanyDto();
         cdto.id = company.getId();
-        cdto.companyName = company.getCompanyName();
+        cdto.name = company.getName();
 
         return cdto;
     }
