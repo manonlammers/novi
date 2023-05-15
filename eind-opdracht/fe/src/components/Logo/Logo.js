@@ -1,7 +1,7 @@
-import React from 'react';
-import logo from "../../assets/connection-icon-png-11.jpeg";
+import React from 'react'
+import logo from 'assets/connection-icon-png-11.jpeg'
 
-function Logo() {
+function Logo () {
     return (
         <div className="login__wrapper">
             <div className="logo">
@@ -9,7 +9,7 @@ function Logo() {
                 <h1>KBS</h1>
             </div>
         </div>
-    );
+    )
 }
 
-export default Logo;
+export default Logo

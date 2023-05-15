@@ -1,0 +1,99 @@
+@import 'src/styles/_base.scss';
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+input {
+    font-size: inherit;
+}
+
+.typography {
+    margin: 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.h1 {
+    margin: 0;
+    font-weight: 300;
+    font-size: $h1-font-size;
+}
+
+.h2 {
+    margin: 0;
+    font-weight: 300;
+    font-size: $h2-font-size;
+}
+
+.h3 {
+    margin: 0;
+    font-weight: 400;
+    font-size: $h3-font-size;
+}
+
+.h4 {
+    margin: 0;
+    font-weight: 400;
+    font-size: $h4-font-size;
+}
+
+.h5 {
+    margin: 0;
+    font-weight: 400;
+    font-size: $h5-font-size;
+}
+
+.h6 {
+    margin: 0;
+    font-weight: 500;
+    font-size: $h6-font-size;
+}
+
+.subtitle1 {
+    margin: 0;
+    font-weight: 400;
+    font-size: $subtitle1-font-size;
+}
+
+.subtitle2 {
+    margin: 0;
+    font-weight: 500;
+    font-size: $subtitle2-font-size;
+}
+
+.body1 {
+    margin: 0;
+    font-weight: 400;
+    font-size: $body1-font-size;
+}
+
+.body2 {
+    margin: 0;
+    font-weight: 400;
+    font-size: $body2-font-size;
+}
+
+.button {
+    margin: 0;
+    font-weight: 500;
+    font-size: $button-font-size;
+    text-transform: uppercase;
+    display: block;
+}
+
+.caption {
+    margin: 0 0 0.35em;
+    font-weight: 400;
+    font-size: $caption-font-size;
+    display: block;
+}
+
+.gutterBottom {
+    margin-bottom: 0.35em;
+}

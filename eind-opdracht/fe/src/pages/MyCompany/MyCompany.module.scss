@@ -1,0 +1,36 @@
+@import 'src/styles/_base.scss';
+
+.column {
+    display: flex;
+}
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 0 $space-sm;
+
+    @include media('<tablet') {
+        flex-flow: row wrap;
+    }
+}
+
+.textField {
+    width: 100%;
+
+    //margin-right: $space-m;
+    //@include media('<tablet') {
+    //    width: 100%;
+    //}
+}
+
+.submitWrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: right;
+}
+
+.submit {
+    width: auto;
+    //margin-left: auto;
+    //margin-right: $space-m;
+}

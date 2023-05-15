@@ -1,0 +1,55 @@
+@import "src/styles/_base.scss";
+
+.component {
+    width: 280px;
+    color: $text-color;
+    position: relative;
+    margin-bottom: $space-ml;
+}
+
+.labelWrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: $space-m; // offset from input padding
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+.label {
+    transition: all 0.15s ease-out;
+}
+
+.labelToTop {
+    font-size: $caption-font-size;
+    transform: translate(-4px, -24px);
+    background-color: white;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.input {
+    width: 100%;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: $space-m;
+    outline-color: $primary-color;
+
+    &:active {
+        //border: 1px solid $primary-color;
+    }
+    &:hover {
+        //border: 1px solid black;
+    }
+}
+
+.helpText {
+    //font-size: $help-font-size;
+}
+
+.error {
+    color: $error-color;
+}
+

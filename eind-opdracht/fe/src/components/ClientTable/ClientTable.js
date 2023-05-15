@@ -1,11 +1,10 @@
-import React from 'react';
-import './ClientTable.css';
-function ClientTable() {
-
+import React from 'react'
+import './ClientTable.css'
+function ClientTable () {
     const data = [
-        { name: "Piet", treatment: 19, minutes: "60", pain: "rug", info: "blabla" },
-        { name: "Piet", treatment: 19, minutes: "60", pain: "rug", info: "blabla" },
-        { name: "Piet", treatment: 19, minutes: "60", pain: "rug", info: "blabla" },
+        { name: 'Piet', treatment: 19, minutes: '60', pain: 'rug', info: 'blabla' },
+        { name: 'Piet', treatment: 19, minutes: '60', pain: 'rug', info: 'blabla' },
+        { name: 'Piet', treatment: 19, minutes: '60', pain: 'rug', info: 'blabla' }
 
     ]
 
@@ -36,7 +35,7 @@ function ClientTable() {
                 })}
             </table>
         </div>
-    );
+    )
 }
 
-export default ClientTable;
+export default ClientTable

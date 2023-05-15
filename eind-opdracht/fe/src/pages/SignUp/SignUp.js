@@ -1,64 +1,63 @@
-import React, {useState} from 'react';
-import './SignUp.css';
-import Logo from "../../components/Logo/Logo";
-import logo from "../../assets/connection-icon-png-11.jpeg";
-import TextInput from "../../components/Input/TextInput/TextInput";
-import EmailadresInput from "../../components/Input/EmailadresInput/EmailadresInput";
-import PasswordInput from "../../components/Input/PasswordInput/PasswordInput";
+import React, { useState } from 'react'
+import styles from './SignUp.module.scss'
+import TextField from 'components/Textfield/TextField'
+import AuthLayout from 'components/AuthLayout/AuthLayout'
+import Typography from 'components/Typography/Typography'
+import Button from 'components/Button/Button'
 
-function SignUp() {
-
+function SignUp () {
     const [formValues, setFormValues] = useState({
         email: '',
         password: '',
-        secondPassword: '',
-    });
+        repeatPassword: ''
+    })
 
     const handleInputValueChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({ ...formValues, [name]: value });
+        const { name, value } = e.target
+        setFormValues({ ...formValues, [name]: value })
     }
 
     const handleFormSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
     }
 
     return (
-      <>
-          <div className="login__wrapper">
-              <div className="logo">
-                  <img src={logo} alt="logo"/>
-                  <h1>KBS</h1>
-              </div>
-        <div className="register">
+        <AuthLayout>
             <form
-                className="register__form"
-                onSubmit={handleFormSubmit}
-                noValidate
+                className={styles.form}
+                autoComplete="off"
             >
-                <div className="register__form__label">Registreren</div>
-                <EmailadresInput/>
-                {/*<input*/}
-                {/*    type="password"*/}
-                {/*    name="password"*/}
-                {/*    placeholder="wachtwoord"*/}
-                {/*    value={formValues.password}*/}
-                {/*    onChange={handleInputValueChange}*/}
-                {/*/>*/}
-                <PasswordInput/>
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="herhaal wachtwoord"
-                    value={formValues.secondPassword}
+                <Typography variant="h5">Registreren</Typography>
+                <TextField
+                    label="E-mailadres"
+                    value={formValues.email}
+                    name="email"
+                    type="email"
+                    helpText={'Vul hier uw e-mailadres in.'}
                     onChange={handleInputValueChange}
                 />
-                <button type="submit">registreren</button>
+                <TextField
+                    label="Wachtwoord"
+                    value={formValues.password}
+                    name="password"
+                    type="password"
+                    error={true}
+                    helpText={'Vul hier je wachtwoord in.'}
+                    onChange={handleInputValueChange}
+                />
+                <TextField
+                    label="Herhaal wachtwoord"
+                    value={formValues.repeatPassword}
+                    name="password"
+                    type="password"
+                    error={true}
+                    helpText={'Vul hier je wachtwoord in.'}
+                    onChange={handleInputValueChange}
+                />
+                <Button>Registreren</Button>
             </form>
-        </div>
-        </div>
-      </>
-    );
+        </AuthLayout>
+    )
 }
 
-export default SignUp;
+export default SignUp

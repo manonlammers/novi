@@ -1,58 +1,54 @@
-import React, {useState} from 'react';
-import './Login.css';
-import logo from 'assets/connection-icon-png-11.jpeg';
-import EmailadresInput from "../../components/Input/EmailadresInput/EmailadresInput";
-import PasswordInput from "../../components/Input/PasswordInput/PasswordInput";
-import Logo from "../../components/Logo/Logo";
+import React, { useState } from 'react'
+import styles from './Login.module.scss'
+import AuthLayout from 'components/AuthLayout/AuthLayout'
+import TextField from 'components/Textfield/TextField'
+import Button from 'components/Button/Button'
+import Typography from 'components/Typography/Typography'
 
-function Login() {
-
+function Login () {
     const [formValues, setFormValues] = useState({
         email: '',
-        password: '',
-    });
+        password: ''
+    })
 
     const handleInputValueChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({ ...formValues, [name]: value });
+        const { name, value } = e.target
+        setFormValues({ ...formValues, [name]: value })
     }
 
     const handleFormSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
     }
 
     return (
-        <>
-            <div className="login__wrapper">
-                <div className="logo">
-                    <img src={logo} alt="logo"/>
-                    <h1>KBS</h1>
-                </div>
-                <div className="login">
-                    <form
-                        className="login__form"
-                        onSubmit={handleFormSubmit}
-                        noValidate
-                    >
-                        <div className="login__form__label">Inloggen</div>
-                        <div className="form__input">
-                            <label className="form__input__label">E-mailadres</label>
-
-                            <EmailadresInput
-                                value={formValues.email}
-                            />
-                            <PasswordInput
-                                value={formValues.password}
-                                onChange={handleInputValueChange}
-                            />
-                        </div>
-                        <button type="submit">inloggen</button>
-                    </form>
-
-                </div>
-            </div>
-        </>
-    );
+        <AuthLayout>
+            <form
+                className={styles.form}
+                // autoComplete="off"
+                noValidate
+            >
+                <Typography variant="h5">Inloggen</Typography>
+                <TextField
+                    label="E-mailadres"
+                    value={formValues.email}
+                    name="email"
+                    type="email"
+                    helpText={'Vul hier je e-mailadres in.'}
+                    onChange={handleInputValueChange}
+                />
+                <TextField
+                    label="Wachtwoord"
+                    value={formValues.password}
+                    name="password"
+                    type="password"
+                    error={true}
+                    helpText={'Vul hier je wachtwoord in.'}
+                    onChange={handleInputValueChange}
+                />
+                <Button>Inloggen</Button>
+            </form>
+        </AuthLayout>
+    )
 }
 
-export default Login;
+export default Login

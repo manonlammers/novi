@@ -1,0 +1,25 @@
+@import 'src/styles/_base.scss';
+
+.components {
+    width: 100%;
+    height: 100%;
+    padding: $space-m $space-xxl;
+}
+
+.sectionHeader {
+    border-bottom: 1px solid $border-color;
+    padding-bottom: $space-l;
+    margin-bottom: $space-l;
+}
+
+section {
+    padding-bottom: $space-xl;
+
+    button {
+        margin-left: $space-m;
+
+        &:first-of-type {
+            margin-left: 0;
+        }
+    }
+}
