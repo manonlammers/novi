@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styles from './MyCompany.module.scss'
 
 import * as companyAPI from 'api/company'
+import * as validationUtils from 'utils/validation'
 import Typography from 'components/Typography/Typography'
 import TextField from 'components/Textfield/TextField'
 import Button from 'components/Button/Button'
@@ -50,41 +51,41 @@ function MyCompany () {
     const validateFormValues = (formValues) => {
         const errors = {}
 
-        if (!formValues.name) {
+        if (!validationUtils.validateIsRequired(formValues.name)) {
             errors.name = 'Is vereist.'
         }
 
-        if (!formValues.phone) {
+        if (!validationUtils.validateIsRequired(formValues.phone)) {
             errors.phone = 'Is vereist.'
-        } else if (!formValues.phone.match(/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/)) {
+        } else if (!validationUtils.validatePhone(formValues.phone)) {
             errors.phone = 'Incorrect formaat.'
         }
 
-        if (!formValues.email) {
+        if (!validationUtils.validateIsRequired(formValues.email)) {
             errors.email = 'Is vereist.'
-        } else if (!formValues.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+        } else if (!validationUtils.validateEmail(formValues.email)) {
             errors.email = 'Incorrect formaat.'
         }
 
-        if (!formValues.zipcode) {
+        if (!validationUtils.validateIsRequired(formValues.zipcode)) {
             errors.zipcode = 'Is vereist.'
-        } else if (!formValues.zipcode.match(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i)) {
+        } else if (!validationUtils.validateZipcode(formValues.zipcode)) {
             errors.zipcode = 'Incorrect formaat.'
         }
 
-        if (!formValues.kvkNumber) {
+        if (!validationUtils.validateIsRequired(formValues.kvkNumber)) {
             errors.kvkNumber = 'Is vereist.'
         }
 
-        if (!formValues.address) {
+        if (!validationUtils.validateIsRequired(formValues.address)) {
             errors.address = 'Is vereist.'
         }
 
-        if (!formValues.city) {
+        if (!validationUtils.validateIsRequired(formValues.city)) {
             errors.city = 'Is vereist.'
         }
 
-        if (!formValues.taxNumber) {
+        if (!validationUtils.validateIsRequired(formValues.taxNumber)) {
             errors.taxNumber = 'Is vereist.'
         }
 
