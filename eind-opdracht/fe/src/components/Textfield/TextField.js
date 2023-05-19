@@ -8,36 +8,55 @@ import styles from './TextField.module.scss'
 function TextField ({
     label = null,
     helpText = null,
-    error = false,
+    error = null,
+    disabled = false,
     name = null,
-    value = '',
+    defaultValue = '',
     type = 'text',
     className = null,
-    onChange = () => {},
+    onChange = null,
     ...props
 }) {
     const [focused, setFocus] = useState(false)
+    const [value, setValue] = useState(props.value || '')
     const moveLabelToTop = value !== '' || focused
 
     return (
-        <div className={cx(styles.component, className)}>
-            {label && (
-                <div className={styles.labelWrapper}>
-                    <Typography gutterBottom={false} className={cx(styles.label, { [styles.labelToTop]: moveLabelToTop })}>
-                        {label}
-                    </Typography>
-                </div>
+        <div
+            className={cx(styles.component, className, {
+                [styles.disabled]: disabled,
+                [styles.error]: error
+            })}
+        >
+            <div style={{ position: 'relative' }}>
+                {label && (
+                    <div className={styles.labelWrapper}>
+                        <Typography gutterBottom={false} className={cx(styles.label, { [styles.labelToTop]: moveLabelToTop })}>
+                            {label}
+                        </Typography>
+                    </div>
+                )}
+                <input
+                    name={name}
+                    value={defaultValue || value}
+                    type={type}
+                    onChange={e => {
+                        if (onChange) {
+                            onChange(e)
+                        }
+
+                        setValue(e.target.value)
+                    }}
+                    className={styles.input}
+                    onFocus={() => setFocus(true)}
+                    onBlur={() => setFocus(false)}
+                />
+            </div>
+            {(helpText || error) && (
+                <Typography gutterBottom={false} className={styles.helpText} variant="caption">
+                    {helpText || error}
+                </Typography>
             )}
-            <input
-                name={name}
-                value={value}
-                type={type}
-                onChange={onChange}
-                className={styles.input}
-                onFocus={() => setFocus(true)}
-                onBlur={() => setFocus(false)}
-                {...props}
-            />
         </div>
     )
 }
@@ -45,7 +64,8 @@ function TextField ({
 TextField.propTypes = {
     label: PropTypes.string,
     helpText: PropTypes.string,
-    error: PropTypes.bool,
+    error: PropTypes.any,
+    disabled: PropTypes.bool,
     value: PropTypes.string,
     name: PropTypes.string,
     type: PropTypes.oneOf(['text', 'password', 'email', 'number']),

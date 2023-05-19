@@ -3,6 +3,7 @@ import styles from './Components.module.scss'
 
 import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
+import TextField from 'components/Textfield/TextField'
 
 export const Components = () => {
     return (
@@ -32,8 +33,26 @@ export const Components = () => {
 
             <section>
                 <Typography variant="h2" className={styles.sectionHeader}>Input</Typography>
-
-                TODO
+                <div className={styles.inputSectionContent}>
+                    <TextField
+                        label="Normal"
+                    />
+                    <TextField
+                        label="Disabled"
+                        value="Hello World"
+                        disabled={true}
+                    />
+                    <TextField
+                        label="Label"
+                        value="Default Value"
+                        helpText="Help text"
+                    />
+                    <TextField
+                        label="Error"
+                        value="Hello World"
+                        error="Error message"
+                    />
+                </div>
             </section>
         </div>
     )

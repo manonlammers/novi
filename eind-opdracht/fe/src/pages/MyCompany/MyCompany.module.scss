@@ -16,21 +16,19 @@
 
 .textField {
     width: 100%;
-
-    //margin-right: $space-m;
-    //@include media('<tablet') {
-    //    width: 100%;
-    //}
 }
 
 .submitWrapper {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: right;
 }
 
-.submit {
+.submitError {
+    width: 100%;
+    color: $error-color;
+}
+
+.submitButton {
     width: auto;
-    //margin-left: auto;
-    //margin-right: $space-m;
 }
