@@ -1,10 +1,27 @@
 import React, { useState } from 'react'
 import styles from './MyCompany.module.scss'
 import NavBar from 'components/NavBar/NavBar'
+import * as companyAPI from 'api/company'
 import TextField from 'components/Textfield/TextField'
 import Button from '../../components/Button/Button'
 
 function MyCompany () {
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false)
+
+    const createCompany = async (data) => {
+        setLoading(true)
+        try {
+            const response = await companyAPI.createCompany(data)
+            const responseData = await response.json()
+            console.log(response)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setLoading(false)
+        }
+    }
     const [formValues, setFormValues] = useState({
         name: '',
         phoneNumber: '',
@@ -24,11 +41,14 @@ function MyCompany () {
     }
     const handleFormSubmit = (e) => {
         e.preventDefault()
+
+        createCompany(formValues)
     }
 
     return (
         <>
             <form
+                autoComplete="off"
                 onSubmit={handleFormSubmit}
             >
 
@@ -106,74 +126,8 @@ function MyCompany () {
                     />
                 </div>
                 <div className={styles.submitWrapper}>
-                    <Button className={styles.submit}>Aanmaken</Button>
+                    <Button disabled={loading} className={styles.submit}>Aanmaken</Button>
                 </div>
-
-                {/* <div className={styles.row}> */}
-                {/*    <Button className={styles.submit}>Aanmaken</Button> */}
-                {/* </div> */}
-
-                {/* <div className={styles.column}> */}
-                {/*    <TextField */}
-                {/*        label='Bedrijfsnaam' */}
-                {/*        name="name" */}
-                {/*        type="text" */}
-                {/*        value={formValues.name} */}
-                {/*        onChange={handleInputValueChange} */}
-                {/*    /> */}
-                {/*    <TextField */}
-                {/*        label='Telefoonnummer' */}
-                {/*        name="phone" */}
-                {/*        type="text" */}
-                {/*        value={formValues.phoneNumber} */}
-                {/*        onChange={handleInputValueChange} */}
-                {/*    /> */}
-                {/*    <TextField */}
-                {/*        label='Postcode' */}
-                {/*        name="zipcode" */}
-                {/*        type="text" */}
-                {/*        value={formValues.zipcode} */}
-                {/*        onChange={handleInputValueChange} */}
-                {/*    /> */}
-                {/*    <TextField */}
-                {/*        label='Kvk nummer' */}
-                {/*        name="kvkNumber" */}
-                {/*        type="text" */}
-                {/*        value={formValues.kvkNumber} */}
-                {/*        onChange={handleInputValueChange} */}
-                {/*    /> */}
-                {/* </div> */}
-                {/* <div className={styles.column}> */}
-                {/*    <TextField */}
-                {/*        label='E-mailadres' */}
-                {/*        name="email" */}
-                {/*        type="text" */}
-                {/*        value={formValues.email} */}
-                {/*        onChange={handleInputValueChange} */}
-                {/*    /> */}
-                {/*    <TextField */}
-                {/*        label='Adres' */}
-                {/*        name="address" */}
-                {/*        type="text" */}
-                {/*        value={formValues.address} */}
-                {/*        onChange={handleInputValueChange} */}
-                {/*    /> */}
-                {/*    <TextField */}
-                {/*        label='Woonplaats' */}
-                {/*        name="city" */}
-                {/*        type="text" */}
-                {/*        value={formValues.city} */}
-                {/*        onChange={handleInputValueChange} */}
-                {/*    /> */}
-                {/*    <TextField */}
-                {/*        label='BTW nummer' */}
-                {/*        name="taxNumber" */}
-                {/*        type="text" */}
-                {/*        value={formValues.taxNumber} */}
-                {/*        onChange={handleInputValueChange} */}
-                {/*    /> */}
-                {/*    <Button>Aanmaken</Button> */}
-                {/* </div> */}
             </form>
         </>
     )
