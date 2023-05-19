@@ -1,7 +1,9 @@
 package kbs.model;
 
-import jakarta.annotation.Nullable;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "companies")
@@ -9,15 +11,14 @@ public class Company {
     @Id
     @GeneratedValue
     private Long id;
-
     private String name;
     private String emailAddress;
-    private int phoneNumber;
+    private String phoneNumber;
     private String address;
     private String zipCode;
-    private String place;
-    private int kvkNumber;
-    private int btwNumber;
+    private String city;
+    private Integer kvkNumber;
+    private Integer btwNumber;
 
     public Long getId() {
         return id;
@@ -43,14 +44,6 @@ public class Company {
         this.emailAddress = emailAddress;
     }
 
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -67,12 +60,12 @@ public class Company {
         this.zipCode = zipCode;
     }
 
-    public String getPlace() {
-        return place;
+    public String getCity() {
+        return city;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public int getKvkNumber() {
@@ -89,5 +82,13 @@ public class Company {
 
     public void setBtwNumber(int btwNumber) {
         this.btwNumber = btwNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -1,5 +1,6 @@
 package kbs.controller;
 
+import jakarta.validation.Valid;
 import kbs.dto.CompanyDto;
 import kbs.service.CompanyService;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("companies")
 public class CompanyController {
@@ -28,9 +30,11 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createCompany(@RequestBody CompanyDto cdto, BindingResult bindingResult) {
+    public ResponseEntity<Object> createCompany(@Valid @RequestBody CompanyDto cdto, BindingResult bindingResult) {
 
         if (bindingResult.hasFieldErrors()) {
+//            Gson gson = new Gson();
+//            return new ResponseEntity<>(gson.toJson(bindingResult.getFieldErrors()), HttpStatus.BAD_REQUEST);
             StringBuilder sb = new StringBuilder();
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 sb.append(fe.getField()).append(": ");

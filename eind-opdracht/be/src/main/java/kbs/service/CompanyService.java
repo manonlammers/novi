@@ -6,6 +6,9 @@ import kbs.model.Company;
 import kbs.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
 
+
+
+
 @Service
 public class CompanyService {
     private final CompanyRepository repository;
