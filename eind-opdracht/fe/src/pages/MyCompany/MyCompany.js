@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styles from './MyCompany.module.scss'
-import NavBar from 'components/NavBar/NavBar'
 import * as companyAPI from 'api/company'
 import TextField from 'components/Textfield/TextField'
 import Button from '../../components/Button/Button'

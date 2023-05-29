@@ -20,7 +20,6 @@ function ClientTable () {
                 </tr>
                 {data.map((val, key) => {
                     return (
-
                         <tr key={key}>
                             <input
                                 type="checkbox"

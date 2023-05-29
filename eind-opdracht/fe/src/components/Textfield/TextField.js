@@ -8,15 +8,17 @@ import styles from './TextField.module.scss'
 function TextField ({
     label = null,
     helpText = null,
-    error = false,
+    error = null,
+    disabled = false,
     name = null,
-    value = '',
+    defaultValue = '',
     type = 'text',
     className = null,
-    onChange = () => {},
+    onChange = null,
     ...props
 }) {
     const [focused, setFocus] = useState(false)
+    const [value, setValue] = useState(props.value || '')
     const moveLabelToTop = value !== '' || focused
 
     return (
@@ -30,9 +32,15 @@ function TextField ({
             )}
             <input
                 name={name}
-                value={value}
+                value={defaultValue || value}
                 type={type}
-                onChange={onChange}
+                onChange={e => {
+                    if (onChange) {
+                        onChange(e)
+                    }
+
+                    setValue(e.target.value)
+                }}
                 className={styles.input}
                 onFocus={() => setFocus(true)}
                 onBlur={() => setFocus(false)}
@@ -47,6 +55,7 @@ TextField.propTypes = {
     helpText: PropTypes.string,
     error: PropTypes.bool,
     value: PropTypes.string,
+    defaultValue: PropTypes.string,
     name: PropTypes.string,
     type: PropTypes.oneOf(['text', 'password', 'email', 'number']),
     className: PropTypes.string,

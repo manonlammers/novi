@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Components.module.scss'
 
 import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
+import Modal from '../../components/Modal/Modal'
 
 export const Components = () => {
+    const [show, setShow] = useState(false)
     return (
         <div className={styles.components}>
             <Typography variant="h2" className={styles.sectionHeader}>Typography</Typography>
@@ -32,8 +34,20 @@ export const Components = () => {
 
             <section>
                 <Typography variant="h2" className={styles.sectionHeader}>Input</Typography>
-
                 TODO
+            </section>
+
+            <section>
+                <div>
+                    <Button onClick={() => setShow(true)}>Show Modal</Button>
+                    <Modal
+                        title="Modal example"
+                        onClose={() => setShow(false)} show={show}>
+                        <div>
+                            <Typography>Blablabla</Typography>
+                        </div>
+                    </Modal>
+                </div>
             </section>
         </div>
     )

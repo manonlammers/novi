@@ -1,0 +1,31 @@
+@import "src/styles/_base.scss";
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    width: 500px;
+    background-color: #fff;
+}
+
+.header, .footer, .body {
+    padding: $space-m $space-ml;
+}
+
+.body {
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+}
+
+.button {
+
+}

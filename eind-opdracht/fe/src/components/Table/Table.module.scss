@@ -1,0 +1,86 @@
+@import "src/styles/_base.scss";
+
+.tableComponent {
+    border: 1px solid $border-color-table;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+.search {
+    //padding: $space-s;
+    margin: $space-sm 0 $space-m $space-ml;
+    //outline-color: $primary-color;
+}
+
+.tableWrapper {
+    overflow: scroll;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.thead {
+    tr {
+        th {
+            padding: $space-m;
+            //border-bottom: 1px solid $border-color;
+            text-align: left;
+            background-color: #f1f1f1;
+            white-space: nowrap;
+        }
+    }
+}
+
+.tbody {
+    tr {
+        td {
+            padding: $space-m;
+            //border-bottom: 1px solid $border-color-table;
+            text-align: left;
+            background-color: #FCFCFC;
+        }
+    }
+}
+
+.select {
+    margin: $space-m;
+}
+
+.label {
+    margin-left: $space-l;
+}
+
+
+.footer {
+    background-color: #f1f1f1;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: $space-s 0 $space-s $space-ml;
+}
+
+.button {
+    border: none;
+    padding: $space-s $space-sm;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: $space-xs;
+    margin-left: $space-xs;
+}
+
+.activeButton {
+    color: white;
+    background-color: $primary-color;
+}
+
+.inactiveButton {
+    background: white;
+}
+
+.delete {
+    color: red;
+    margin-right: $space-s;
+}
