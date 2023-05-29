@@ -22,30 +22,41 @@ function TextField ({
     const moveLabelToTop = value !== '' || focused
 
     return (
-        <div className={cx(styles.component, className)}>
-            {label && (
-                <div className={styles.labelWrapper}>
-                    <Typography gutterBottom={false} className={cx(styles.label, { [styles.labelToTop]: moveLabelToTop })}>
-                        {label}
-                    </Typography>
-                </div>
-            )}
-            <input
-                name={name}
-                value={defaultValue || value}
-                type={type}
-                onChange={e => {
-                    if (onChange) {
-                        onChange(e)
-                    }
+        <div
+            className={cx(styles.component, className, {
+                [styles.disabled]: disabled,
+                [styles.error]: error
+            })}
+        >
+            <div style={{ position: 'relative' }}>
+                {label && (
+                    <div className={styles.labelWrapper}>
+                        <Typography gutterBottom={false} className={cx(styles.label, { [styles.labelToTop]: moveLabelToTop })}>
+                            {label}
+                        </Typography>
+                    </div>
+                )}
+                <input
+                    name={name}
+                    value={defaultValue || value}
+                    type={type}
+                    onChange={e => {
+                        if (onChange) {
+                            onChange(e)
+                        }
 
-                    setValue(e.target.value)
-                }}
-                className={styles.input}
-                onFocus={() => setFocus(true)}
-                onBlur={() => setFocus(false)}
-                {...props}
-            />
+                        setValue(e.target.value)
+                    }}
+                    className={styles.input}
+                    onFocus={() => setFocus(true)}
+                    onBlur={() => setFocus(false)}
+                />
+            </div>
+            {(helpText || error) && (
+                <Typography gutterBottom={false} className={styles.helpText} variant="caption">
+                    {helpText || error}
+                </Typography>
+            )}
         </div>
     )
 }
@@ -53,7 +64,8 @@ function TextField ({
 TextField.propTypes = {
     label: PropTypes.string,
     helpText: PropTypes.string,
-    error: PropTypes.bool,
+    error: PropTypes.any,
+    disabled: PropTypes.bool,
     value: PropTypes.string,
     defaultValue: PropTypes.string,
     name: PropTypes.string,

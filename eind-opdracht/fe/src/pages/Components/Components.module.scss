@@ -23,3 +23,9 @@ section {
         }
     }
 }
+
+.inputSectionContent {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0 $space-sm;
+}

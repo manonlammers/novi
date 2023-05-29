@@ -1,7 +1,8 @@
 package kbs.model;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "companies")
@@ -11,13 +12,20 @@ public class Company {
     private Long id;
 
     private String name;
+
     private String emailAddress;
-    private int phoneNumber;
+
+    private String phoneNumber;
+
     private String address;
+
     private String zipCode;
+
     private String place;
-    private int kvkNumber;
-    private int btwNumber;
+
+    private Integer kvkNumber;
+
+    private Integer btwNumber;
 
     public Long getId() {
         return id;
@@ -43,11 +51,11 @@ public class Company {
         this.emailAddress = emailAddress;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -75,11 +83,11 @@ public class Company {
         this.place = place;
     }
 
-    public int getKvkNumber() {
+    public Integer getKvkNumber() {
         return kvkNumber;
     }
 
-    public void setKvkNumber(int kvkNumber) {
+    public void setKvkNumber(Integer kvkNumber) {
         this.kvkNumber = kvkNumber;
     }
 

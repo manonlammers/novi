@@ -3,7 +3,8 @@ import styles from './Components.module.scss'
 
 import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
-import Modal from '../../components/Modal/Modal'
+import TextField from 'components/Textfield/TextField'
+import Modal from 'components/Modal/Modal'
 
 export const Components = () => {
     const [show, setShow] = useState(false)
@@ -34,10 +35,30 @@ export const Components = () => {
 
             <section>
                 <Typography variant="h2" className={styles.sectionHeader}>Input</Typography>
-                TODO
+                <div className={styles.inputSectionContent}>
+                    <TextField
+                        label="Normal"
+                    />
+                    <TextField
+                        label="Disabled"
+                        value="Hello World"
+                        disabled={true}
+                    />
+                    <TextField
+                        label="Label"
+                        value="Default Value"
+                        helpText="Help text"
+                    />
+                    <TextField
+                        label="Error"
+                        value="Hello World"
+                        error="Error message"
+                    />
+                </div>
             </section>
 
             <section>
+                <Typography variant="h2" className={styles.sectionHeader}>Modals</Typography>
                 <div>
                     <Button onClick={() => setShow(true)}>Show Modal</Button>
                     <Modal
