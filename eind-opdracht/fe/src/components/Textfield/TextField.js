@@ -67,6 +67,7 @@ TextField.propTypes = {
     error: PropTypes.any,
     disabled: PropTypes.bool,
     value: PropTypes.string,
+    defaultValue: PropTypes.string,
     name: PropTypes.string,
     type: PropTypes.oneOf(['text', 'password', 'email', 'number']),
     className: PropTypes.string,

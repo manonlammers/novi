@@ -9,10 +9,12 @@ function Button ({
     color = 'primary',
     className = null,
     disabled = false,
-    children = null
+    children = null,
+    ...prop
 }) {
     return (
         <button
+            {...prop}
             className={cx(styles.component, className, {
                 [styles[color]]: color,
                 [styles.disabled]: disabled

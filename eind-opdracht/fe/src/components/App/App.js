@@ -9,12 +9,13 @@ import {
     LOGIN,
     SIGN_UP,
     CUSTOMERS,
-    MY_COMPANY
+    MY_COMPANY,
+    USERS
 } from 'constants/Routes'
-import ClientDashboard from 'pages/ClientDashboard/ClientDashboard'
-import Components from 'pages/Components/Components'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
-import Customers from '../../pages/Customers/Customers'
+import Components from 'pages/Components/Components'
+import Customers from 'pages/Customers/Customers'
+import Users from 'pages/Users/Users'
 
 function App () {
     return (
@@ -23,7 +24,8 @@ function App () {
             <Route path={SIGN_UP} element={<SignUp />} />
             <Route path={HOME} element={<DashboardLayout />}>
                 <Route path={MY_COMPANY} element={<MyCompany />} />
-                <Route path={CUSTOMERS} element={<Customers/>} />
+                <Route path={CUSTOMERS} element={<Customers />} />
+                <Route path={USERS} element={<Users />} />
             </Route>
 
             <Route path="/components" element={<Components />} />
