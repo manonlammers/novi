@@ -58,6 +58,7 @@ export const Components = () => {
             </section>
 
             <section>
+                <Typography variant="h2" className={styles.sectionHeader}>Modals</Typography>
                 <div>
                     <Button onClick={() => setShow(true)}>Show Modal</Button>
                     <Modal
