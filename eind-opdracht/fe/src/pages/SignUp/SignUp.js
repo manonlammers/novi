@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import styles from './SignUp.module.scss'
+
 import * as userAPI from 'api/user'
+import * as validationUtils from 'utils/validation'
 import TextField from 'components/Textfield/TextField'
 import AuthLayout from 'components/AuthLayout/AuthLayout'
 import Typography from 'components/Typography/Typography'
@@ -11,29 +13,48 @@ function SignUp () {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const createUser = async (data) => {
-        setLoading(true)
-        try {
-            const response = await userAPI.createUser(data)
-            const responseData = await response.json()
-            console.log(response)
-        } catch (e) {
-            console.log(e)
-        } finally {
-            setLoading(false)
-        }
-    }
     const [formValues, setFormValues] = useState({
         email: '',
         password: '',
         repeatPassword: ''
     })
 
+    const createUser = async (data) => {
+        setLoading(true)
+        setError(null)
+
+        try {
+            const response = await userAPI.createUser(data)
+
+            if (response.status >= 400) {
+                return setError('Oeps, er ging iets fout')
+            }
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const handleInputValueChange = (e) => {
         setFormValues({
             ...formValues,
             [e.target.name]: e.target.value
         })
+    }
+
+    const validateFormValues = (formValues) => {
+        const errors = {}
+
+        if (!validationUtils.validateIsRequired(formValues.email)) {
+            errors.email = 'Is vereist'
+        } else if (!validationUtils.validateEmail(formValues.email)) {
+            errors.email = 'Ongeldige invoer'
+        }
+
+        if (!validationUtils.validateIsRequired(formValues.password)) {
+            errors.password = 'Is vereist'
+        }
     }
 
     const handleFormSubmit = (e) => {

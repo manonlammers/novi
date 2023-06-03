@@ -5,6 +5,7 @@ import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
 import TextField from 'components/Textfield/TextField'
 import Modal from 'components/Modal/Modal'
+import Dropdown from '../../components/Dropdown/Dropdown'
 
 export const Components = () => {
     const [show, setShow] = useState(false)
@@ -69,6 +70,17 @@ export const Components = () => {
                         </div>
                     </Modal>
                 </div>
+            </section>
+
+            <section>
+                <Typography variant="h2" className={styles.sectionHeader}>Dropdown</Typography>
+                <Dropdown
+                    trigger={<Typography>Dropdown</Typography>}
+                    menu={[
+                        <div>Menu 1</div>,
+                        <div>Menu 2</div>
+                    ]}
+                />
             </section>
         </div>
     )

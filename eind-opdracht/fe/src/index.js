@@ -2,15 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom'
 import './index.scss'
-import App from './components/App/App'
+import ModelProvider from 'components/Modal/ModalProvider'
+import App from 'components/App/App'
 import reportWebVitals from './reportWebVitals'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
-        <Router>
-            <App />
-        </Router>
+        <ModelProvider>
+            <Router>
+                <App />
+            </Router>
+        </ModelProvider>
     </React.StrictMode>
 )
 

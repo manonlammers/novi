@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
-import Table from 'components/Table/Table'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faPen, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 
-const usersInfo = [
+import { useModal } from 'components/Modal/ModalProvider'
+
+import Table from 'components/Table/Table'
+import Dropdown from 'components/Dropdown/Dropdown'
+import styles from './Customers.module.scss'
+
+const usersData = [
     { id: 1, name: 'John Do', treatment: 'treatment1', minutes: 10, pain: 'much', info: 'Blablabla' },
     { id: 2, name: 'Piet', treatment: 'treatment2', minutes: 20, pain: 'much', info: 'Blablabla' },
     { id: 3, name: 'Henk', treatment: 'treatment3', minutes: 30, pain: 'much', info: 'Blablabla' },
@@ -12,7 +19,42 @@ const usersInfo = [
 ]
 
 function Customers (props) {
-    const [users] = useState([...usersInfo])
+    const modal = useModal()
+
+    const onDelete = (user) => {
+        modal.showModal({
+            title: 'Verwijderen',
+            children: (
+                <div>{`Weet u zeker dat u ${user.name} wilt verwijderen?`}</div>
+            )
+        })
+    }
+
+    const [data] = useState([...usersData].map(u => ({
+        ...u,
+        actions: (
+            <Dropdown
+                top={18}
+                right={0}
+                trigger={
+                    <div className={styles.dropdownTrigger}>
+                        <FontAwesomeIcon icon={faEllipsisVertical}/>
+                    </div>
+                }
+                menu={[
+                    <>
+                        <FontAwesomeIcon icon={faPen}/>
+                        <span>Wijzigen</span>
+                    </>,
+                    <>
+                        <FontAwesomeIcon className={styles.delete} icon={faTrash}/>
+                        <span onClick={() => onDelete(u)}>Verwijderen</span>
+                    </>
+                ]}
+            />
+        )
+    })))
+
     return (
         <Table
             columns={[
@@ -20,9 +62,10 @@ function Customers (props) {
                 { key: 'treatment', label: 'Behandeling' },
                 { key: 'minutes', label: 'Minuten', style: { textAlign: 'right' } },
                 { key: 'pain', label: 'Klacht' },
-                { key: 'info', label: 'Info' }
+                { key: 'info', label: 'Info' },
+                { key: 'actions', label: 'Acties', style: { textAlign: 'right' } }
             ]}
-            data={users}
+            data={data}
             rowsPerPage={5}
         />
     )

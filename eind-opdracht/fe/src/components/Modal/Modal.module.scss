@@ -14,7 +14,9 @@
 
 .content {
     width: 500px;
-    background-color: #fff;
+    background-color: white;
+    border-radius: $border-radius;
+    box-shadow: $popover-shadow;
 }
 
 .header, .footer, .body {

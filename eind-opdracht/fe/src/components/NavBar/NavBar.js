@@ -1,19 +1,16 @@
 import React, { useState } from 'react'
 import './NavBar.css'
 import styles from './NavBar.module.scss'
-function NavBar () {
-    // const [showNavbar, setShowNavbar] = useState(false)
-    //
-    // const handleShowNavbar = () => {
-    //     setShowNavbar(!showNavbar)
-    // }
 
+import * as Routes from 'constants/Routes'
+
+function NavBar () {
     return (
         <div className={styles.navbar}>
-            <a href="/overzicht">KBS</a>
-            <a href="/profiel">Profiel</a>
-            <a href="/dashboard">Bedrijf</a>
-            <a href="/uitloggen">Uitloggen</a>
+            <a href={Routes.CUSTOMERS}>KBS</a>
+            <a href={Routes.ACCOUNT}>Account</a>
+            <a href={Routes.MY_COMPANY}>Bedrijf</a>
+            <a href={Routes.SIGN_OUT}>Uitloggen</a>
         </div>
     )
 }

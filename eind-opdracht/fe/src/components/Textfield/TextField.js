@@ -37,6 +37,7 @@ function TextField ({
                     </div>
                 )}
                 <input
+                    {...props}
                     name={name}
                     value={defaultValue || value}
                     type={type}
