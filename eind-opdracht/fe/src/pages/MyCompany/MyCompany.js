@@ -52,41 +52,41 @@ function MyCompany () {
         const errors = {}
 
         if (!validationUtils.validateIsRequired(formValues.name)) {
-            errors.name = 'Is vereist.'
+            errors.name = 'Is vereist'
         }
 
         if (!validationUtils.validateIsRequired(formValues.phone)) {
-            errors.phone = 'Is vereist.'
+            errors.phone = 'Is vereist'
         } else if (!validationUtils.validatePhone(formValues.phone)) {
-            errors.phone = 'Incorrect formaat.'
+            errors.phone = 'Ongeldige invoer'
         }
 
         if (!validationUtils.validateIsRequired(formValues.email)) {
-            errors.email = 'Is vereist.'
+            errors.email = 'Is vereist'
         } else if (!validationUtils.validateEmail(formValues.email)) {
-            errors.email = 'Incorrect formaat.'
+            errors.email = 'Ongeldige invoer'
         }
 
         if (!validationUtils.validateIsRequired(formValues.zipcode)) {
-            errors.zipcode = 'Is vereist.'
+            errors.zipcode = 'Is vereist'
         } else if (!validationUtils.validateZipcode(formValues.zipcode)) {
-            errors.zipcode = 'Incorrect formaat.'
+            errors.zipcode = 'Ongeldige invoer'
         }
 
         if (!validationUtils.validateIsRequired(formValues.kvkNumber)) {
-            errors.kvkNumber = 'Is vereist.'
+            errors.kvkNumber = 'Is vereist'
         }
 
         if (!validationUtils.validateIsRequired(formValues.address)) {
-            errors.address = 'Is vereist.'
+            errors.address = 'Is vereist'
         }
 
         if (!validationUtils.validateIsRequired(formValues.city)) {
-            errors.city = 'Is vereist.'
+            errors.city = 'Is vereist'
         }
 
         if (!validationUtils.validateIsRequired(formValues.taxNumber)) {
-            errors.taxNumber = 'Is vereist.'
+            errors.taxNumber = 'Is vereist'
         }
 
         const isValid = Object.keys(errors).length === 0

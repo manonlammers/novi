@@ -38,3 +38,8 @@
         margin-right: $space-s;
     }
 }
+
+.menuWrapper {
+    z-index: 1;
+    position: absolute;
+}

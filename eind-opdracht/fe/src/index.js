@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-import ModalProvider from 'components/Modal/ModalProvider'
 import App from 'components/App/App'
+import ModalProvider from 'components/Modal/ModalProvider'
 import reportWebVitals from './reportWebVitals'
 import './index.scss'
 

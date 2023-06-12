@@ -1,11 +1,12 @@
 import React from 'react'
 import styles from './Components.module.scss'
 
+import { useModal } from 'components/Modal/ModalProvider'
 import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
 import TextField from 'components/Textfield/TextField'
 import Dropdown from 'components/Dropdown/Dropdown'
-import { useModal } from 'components/Modal/ModalProvider'
+import Modal from 'components/Modal/Modal'
 
 export const Components = () => {
     const modal = useModal()
@@ -88,6 +89,17 @@ export const Components = () => {
                         ]}
                     />
                 </div>
+            </section>
+
+            <section>
+                <Typography variant="h2" className={styles.sectionHeader}>Dropdown</Typography>
+                <Dropdown
+                    trigger={<Typography>Dropdown</Typography>}
+                    menu={[
+                        <div>Menu 1</div>,
+                        <div>Menu 2</div>
+                    ]}
+                />
             </section>
         </div>
     )

@@ -21,6 +21,10 @@ const Dropdown = ({
         setOpen(false)
     })
 
+    const handleOpen = () => {
+        setOpen(!open)
+    }
+
     return (
         <div ref={dropdownRef} className={styles.dropdown}>
             {cloneElement(trigger, {
@@ -37,7 +41,9 @@ const Dropdown = ({
                                 {cloneElement(menuItem, {
                                     onClick: () => {
                                         menuItem.props.onClick?.()
-                                        console.log('COMES HERE')
+                                        if (menuItem.props.onClick) {
+                                            menuItem.props.onClick()
+                                        }
                                         setOpen(false)
                                     }
                                 })}

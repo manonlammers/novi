@@ -43,11 +43,11 @@ function Customers (props) {
                 )}
                 menu={[
                     <>
-                        <FontAwesomeIcon icon={faPen} />
+                        <FontAwesomeIcon icon={faPen}/>
                         <span>Wijzigen</span>
                     </>,
                     <>
-                        <FontAwesomeIcon icon={faTrash} />
+                        <FontAwesomeIcon className={styles.delete} icon={faTrash}/>
                         <span onClick={() => onDelete(u)}>Verwijderen</span>
                     </>
                 ]}

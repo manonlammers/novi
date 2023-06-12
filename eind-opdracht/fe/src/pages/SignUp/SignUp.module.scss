@@ -1,7 +1,21 @@
 @import 'src/styles/_base.scss';
 
 .form {
-    border: 1px solid red;
     display: flex;
     flex-flow: column;
+}
+
+.submitWrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: right;
+}
+
+.submitError {
+    width: 100%;
+    color: $error-color;
+}
+
+.submitButton {
+    width: 100%;
 }
