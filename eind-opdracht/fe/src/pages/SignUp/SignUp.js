@@ -13,6 +13,7 @@ function SignUp () {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
+    const [formErrors, setFormErrors] = useState({})
     const [formValues, setFormValues] = useState({
         email: '',
         password: '',
@@ -54,13 +55,33 @@ function SignUp () {
 
         if (!validationUtils.validateIsRequired(formValues.password)) {
             errors.password = 'Is vereist'
+        } else if (!validationUtils.validatePassword(formValues.password)) {
+            errors.password = 'Wachtwoord is niet sterk genoeg (6 tekens, 1 cijfer en 1 vreemd teken vereist)'
+        }
+
+        if (!validationUtils.validateIsRequired(formValues.repeatPassword)) {
+            errors.repeatPassword = 'Is vereist'
+        } else if (formValues.repeatPassword !== formValues.password) {
+            errors.repeatPassword = 'Wachtwoord komt niet overeen'
+        }
+
+        const isValid = Object.keys(errors).length === 0
+
+        return {
+            isValid,
+            errors
         }
     }
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
 
-        createUser(formValues)
+        const { isValid, errors } = validateFormValues(formValues)
+        setFormErrors(errors)
+        console.log({ isValid, errors })
+        if (isValid) {
+            return createUser(formValues)
+        }
     }
 
     return (
@@ -69,33 +90,39 @@ function SignUp () {
                 className={styles.form}
                 autoComplete="off"
                 onSubmit={handleFormSubmit}
+                noValidate={true}
             >
                 <Typography variant="h5">Registreren</Typography>
                 <TextField
                     label="E-mailadres"
                     value={formValues.email}
+                    error={formErrors.email}
                     name="email"
                     type="email"
-                    helpText="Vul hier uw e-mailadres in."
                     onChange={handleInputValueChange}
                 />
                 <TextField
                     label="Wachtwoord"
                     value={formValues.password}
+                    error={formErrors.password}
                     name="password"
                     type="password"
-                    helpText="Vul hier je wachtwoord in."
                     onChange={handleInputValueChange}
                 />
                 <TextField
                     label="Herhaal wachtwoord"
                     value={formValues.repeatPassword}
-                    name="password"
+                    error={formErrors.repeatPassword}
+                    name="repeatPassword"
                     type="password"
-                    helpText="Vul hier je wachtwoord in."
                     onChange={handleInputValueChange}
                 />
-                <Button disabled={loading}>Registreren</Button>
+                <div className={styles.submitWrapper}>
+                    {error && (
+                        <Typography className={styles.submitError}>{error}</Typography>
+                    )}
+                    <Button disabled={loading} className={styles.submitButton}>Registeren</Button>
+                </div>
             </form>
         </AuthLayout>
     )

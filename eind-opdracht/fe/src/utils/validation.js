@@ -13,3 +13,7 @@ export const validatePhone = (value) => {
 export const validateZipcode = (value) => {
     return value.match(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i)
 }
+
+export const validatePassword = (value) => {
+    return value.match(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/)
+}
