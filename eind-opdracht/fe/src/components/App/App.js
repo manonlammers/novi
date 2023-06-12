@@ -1,9 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import Login from 'pages/Login/Login'
-import SignUp from 'pages/SignUp/SignUp'
-import MyCompany from 'pages/MyCompany/MyCompany'
 import {
     HOME,
     LOGIN,
@@ -12,7 +9,11 @@ import {
     MY_COMPANY,
     USERS
 } from 'constants/Routes'
-import DashboardLayout from '../DashboardLayout/DashboardLayout'
+
+import DashboardLayout from 'components/DashboardLayout/DashboardLayout'
+import Login from 'pages/Login/Login'
+import SignUp from 'pages/SignUp/SignUp'
+import MyCompany from 'pages/MyCompany/MyCompany'
 import Components from 'pages/Components/Components'
 import Customers from 'pages/Customers/Customers'
 import Users from 'pages/Users/Users'

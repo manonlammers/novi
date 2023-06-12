@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './Components.module.scss'
 
 import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
 import TextField from 'components/Textfield/TextField'
-import Modal from 'components/Modal/Modal'
+import Dropdown from 'components/Dropdown/Dropdown'
+import { useModal } from 'components/Modal/ModalProvider'
 
 export const Components = () => {
-    const [show, setShow] = useState(false)
+    const modal = useModal()
+
     return (
         <div className={styles.components}>
             <Typography variant="h2" className={styles.sectionHeader}>Typography</Typography>
@@ -60,14 +62,31 @@ export const Components = () => {
             <section>
                 <Typography variant="h2" className={styles.sectionHeader}>Modals</Typography>
                 <div>
-                    <Button onClick={() => setShow(true)}>Show Modal</Button>
-                    <Modal
-                        title="Modal example"
-                        onClose={() => setShow(false)} show={show}>
-                        <div>
-                            <Typography>Blablabla</Typography>
-                        </div>
-                    </Modal>
+                    <Button
+                        onClick={() => modal.showModal({
+                            title: 'Modal example',
+                            children: (
+                                <div>
+                                    <Typography gutterBottom={false}>Content</Typography>
+                                </div>
+                            )
+                        })}
+                    >
+                        Show Modal
+                    </Button>
+                </div>
+            </section>
+
+            <section>
+                <Typography variant="h2" className={styles.sectionHeader}>Dropdowns</Typography>
+                <div>
+                    <Dropdown
+                        trigger={<Typography>Click me</Typography>}
+                        menu={[
+                            <div onClick={() => console.log('CLICKED')}>Menu item 1</div>,
+                            <div>Menu item 2</div>
+                        ]}
+                    />
                 </div>
             </section>
         </div>

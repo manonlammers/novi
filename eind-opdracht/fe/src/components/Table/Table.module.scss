@@ -1,15 +1,13 @@
 @import "src/styles/_base.scss";
 
 .tableComponent {
-    border: 1px solid $border-color-table;
     border-radius: 4px;
-    background-color: #f1f1f1;
+    border: 1px solid $border-color;
+    background-color: white;
 }
 
 .search {
-    //padding: $space-s;
-    margin: $space-sm 0 $space-m $space-ml;
-    //outline-color: $primary-color;
+    margin: $space-m;
 }
 
 .tableWrapper {
@@ -21,13 +19,14 @@
     width: 100%;
 }
 
+
 .thead {
     tr {
+        border-bottom: 1px solid $border-color;
+
         th {
             padding: $space-m;
-            //border-bottom: 1px solid $border-color;
             text-align: left;
-            background-color: #f1f1f1;
             white-space: nowrap;
         }
     }
@@ -35,11 +34,11 @@
 
 .tbody {
     tr {
+        border-bottom: 1px solid $border-color;
+
         td {
             padding: $space-m;
-            //border-bottom: 1px solid $border-color-table;
             text-align: left;
-            background-color: #FCFCFC;
         }
     }
 }
@@ -52,9 +51,7 @@
     margin-left: $space-l;
 }
 
-
 .footer {
-    background-color: #f1f1f1;
     padding: 8px 0;
     display: flex;
     align-items: center;

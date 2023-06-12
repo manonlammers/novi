@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import styles from './MyCompany.module.scss'
 
 import * as companyAPI from 'api/company'
 import * as validationUtils from 'utils/validation'
 import Typography from 'components/Typography/Typography'
 import TextField from 'components/Textfield/TextField'
 import Button from 'components/Button/Button'
+import styles from './MyCompany.module.scss'
 
 function MyCompany () {
     const [data, setData] = useState(null)
@@ -111,6 +111,7 @@ function MyCompany () {
     return (
         <>
             <form
+                className={styles.form}
                 onSubmit={handleFormSubmit}
             >
                 <div className={styles.row}>

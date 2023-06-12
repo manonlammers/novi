@@ -1,5 +1,5 @@
 export const validateIsRequired = (value) => {
-    return !value
+    return Boolean(value)
 }
 
 export const validateEmail = (value) => {

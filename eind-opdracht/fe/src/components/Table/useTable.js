@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+
 function useTable (data, page, rowsPerPage) {
     const [tableRange, setTableRange] = useState([])
     const [slice, setSlice] = useState([])
