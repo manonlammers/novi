@@ -6,7 +6,7 @@ import TextField from 'components/Textfield/TextField'
 import Typography from 'components/Typography/Typography'
 import styles from './Table.module.scss'
 
-const Table = ({ columns, data, rowsPerPage }) => {
+const Table = ({ columns, data, rowsPerPage, onRowClick }) => {
     const [page, setPage] = useState(1)
     const [tableData, setTableData] = useState(data)
     const [search, setSearch] = useState('')
@@ -68,7 +68,7 @@ const Table = ({ columns, data, rowsPerPage }) => {
                         )
                         : slice.map((row) => {
                             return (
-                                <tr key={row.id}>
+                                <tr key={row.id} onClick={() => onRowClick(row)}>
                                     {Object.keys(row).map((rowKey, i) => {
                                         const column = columns.find(c => c.key?.toLowerCase() === rowKey)
                                         if (!column) {
@@ -108,8 +108,10 @@ const Table = ({ columns, data, rowsPerPage }) => {
 }
 
 Table.propTypes = {
-    theadData: PropTypes.array,
-    tbodyData: PropTypes.array
+    columns: PropTypes.array,
+    data: PropTypes.array,
+    rowsPerPage: PropTypes.number,
+    onRowClick: PropTypes.func
 }
 
 export default Table

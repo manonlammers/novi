@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import styles from '../MyCompany/MyCompany.module.scss'
 
 import * as validationUtils from 'utils/validation'
 import * as companyAPI from 'api/customer'
+
 import TextField from 'components/Textfield/TextField'
 import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
+import styles from '../Customer/Customer.module.scss'
 
-function MyCustomers () {
+function Customer () {
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -155,4 +156,4 @@ function MyCustomers () {
     )
 }
 
-export default MyCustomers
+export default Customer
