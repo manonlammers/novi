@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState } from 'react'
 import Table from 'components/Table/Table'
-import Modal from "../../components/Modal/Modal";
+import Modal from "components/Modal/Modal";
 
 const usersInfo = [
     {

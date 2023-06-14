@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
-import * as companyAPI from '../../api/customer'
+import { useNavigate } from 'react-router-dom'
+
+import * as companyAPI from 'api/customer'
+import * as Routes from 'constants/Routes'
 import { useModal } from 'components/Modal/ModalProvider'
 
 import Table from 'components/Table/Table'
@@ -9,6 +12,7 @@ import Dropdown from 'components/Dropdown/Dropdown'
 import styles from './Customers.module.scss'
 
 function Customers () {
+    const navigate = useNavigate()
     const modal = useModal()
     const [customers, setCustomers] = useState([])
 
@@ -29,6 +33,10 @@ function Customers () {
                 <div>{`Weet u zeker dat u ${customer.name} wilt verwijderen?`}</div>
             )
         })
+    }
+
+    const onClickCustomer = (customer) => {
+        navigate(`${Routes.CUSTOMER}/${customer.id}`)
     }
 
     return (
@@ -68,6 +76,7 @@ function Customers () {
                 }
             })}
             rowsPerPage={5}
+            onRowClick={onClickCustomer}
         />
     )
 }

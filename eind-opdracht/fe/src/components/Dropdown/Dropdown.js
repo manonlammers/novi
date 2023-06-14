@@ -21,14 +21,18 @@ const Dropdown = ({
         setOpen(false)
     })
 
-    const handleOpen = () => {
+    const handleOpen = (e) => {
+        e.stopPropagation()
         setOpen(!open)
     }
 
     return (
         <div ref={dropdownRef} className={styles.dropdown}>
             {cloneElement(trigger, {
-                onClick: () => setOpen(!open),
+                onClick: (e) => {
+                    e.stopPropagation()
+                    setOpen(!open)
+                },
                 className: cx(styles.trigger, {
                     [trigger.props.className]: trigger.props.className
                 })
