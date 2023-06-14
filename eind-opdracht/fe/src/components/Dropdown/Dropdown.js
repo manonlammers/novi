@@ -37,20 +37,8 @@ const Dropdown = ({
                 <div className={styles.menuWrapper} style={{ top, right, bottom, left }}>
                     <ul className={styles.menu}>
                         {menu.map((menuItem, index) => (
-                            <li key={index} className={styles.menuItem}>
-                                {cloneElement(menuItem, {
-                                    onClick: () => {
-                                        console.log('On click item')
-
-                                        menuItem.props.onClick?.()
-                                        if (menuItem.props.onClick) {
-                                            menuItem.props.onClick()
-                                        }
-
-                                        console.log('SetOpen === false')
-                                        setOpen(false)
-                                    }
-                                })}
+                            <li key={index} className={styles.menuItem} onClick={handleOpen}>
+                                {cloneElement(menuItem)}
                             </li>
                         ))}
                     </ul>

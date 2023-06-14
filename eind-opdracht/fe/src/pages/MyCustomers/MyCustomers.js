@@ -119,7 +119,7 @@ function MyCustomers () {
                     <TextField
                         label='Duur'
                         name="minutes"
-                        type="text"
+                        type="number"
                         className={styles.textField}
                         value={formValues.minutes}
                         error={formErrors.minutes}
