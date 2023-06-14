@@ -87,8 +87,6 @@ function MyCustomers () {
         }
     }
 
-    const [customers, setCustomers] = useState([])
-
     return (
         <>
             <form
