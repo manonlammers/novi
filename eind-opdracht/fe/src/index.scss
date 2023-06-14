@@ -10,8 +10,7 @@ body,
 
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    background-color: rgb(231, 235, 240);
-
+    //background-color: rgb(231, 235, 240);
 
     @include media("<tablet") {
         font-size: 14px;
@@ -21,4 +20,14 @@ body,
 
 * {
     box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: $primary-color;
+    font-size: inherit;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }

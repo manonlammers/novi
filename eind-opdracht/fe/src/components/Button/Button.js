@@ -10,6 +10,7 @@ function Button ({
     className = null,
     disabled = false,
     children = null,
+    onClick = null,
     ...prop
 }) {
     return (

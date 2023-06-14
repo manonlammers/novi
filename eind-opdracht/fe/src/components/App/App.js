@@ -7,7 +7,7 @@ import {
     SIGN_UP,
     CUSTOMERS,
     MY_COMPANY,
-    USERS
+    USERS, NEW_CUSTOMERS
 } from 'constants/Routes'
 
 import DashboardLayout from 'components/DashboardLayout/DashboardLayout'
@@ -17,6 +17,7 @@ import MyCompany from 'pages/MyCompany/MyCompany'
 import Components from 'pages/Components/Components'
 import Customers from 'pages/Customers/Customers'
 import Users from 'pages/Users/Users'
+import MyCustomers from '../../pages/MyCustomers/MyCustomers'
 
 function App () {
     return (
@@ -26,6 +27,7 @@ function App () {
             <Route path={HOME} element={<DashboardLayout />}>
                 <Route path={MY_COMPANY} element={<MyCompany />} />
                 <Route path={CUSTOMERS} element={<Customers />} />
+                <Route path={NEW_CUSTOMERS} element={<MyCustomers />} />
                 <Route path={USERS} element={<Users />} />
             </Route>
 

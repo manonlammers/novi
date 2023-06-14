@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import styles from './SignUp.module.scss'
+import { Link } from 'react-router-dom'
 
 import * as userAPI from 'api/user'
 import * as validationUtils from 'utils/validation'
+import * as Routes from 'constants/Routes'
+
 import TextField from 'components/Textfield/TextField'
 import AuthLayout from 'components/AuthLayout/AuthLayout'
 import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
+import styles from './SignUp.module.scss'
 
 function SignUp () {
     const [data, setData] = useState(null)
@@ -27,11 +30,15 @@ function SignUp () {
         try {
             const response = await userAPI.createUser(data)
 
+            if (response.status === 409) {
+                return setError('Dit email-adres bestaat al. Login!')
+            }
             if (response.status >= 400) {
                 return setError('Oeps, er ging iets fout')
             }
         } catch (e) {
             console.log(e)
+            return setError('Oeps, er ging iets fout')
         } finally {
             setLoading(false)
         }
@@ -123,6 +130,9 @@ function SignUp () {
                     )}
                     <Button disabled={loading} className={styles.submitButton}>Registeren</Button>
                 </div>
+                <Link to={Routes.LOGIN} className={styles.loginLink}>
+                    Al een account? Login!
+                </Link>
             </form>
         </AuthLayout>
     )

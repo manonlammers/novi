@@ -1,5 +1,4 @@
 import React from 'react'
-import './NavBar.css'
 import styles from './NavBar.module.scss'
 
 import * as Routes from 'constants/Routes'

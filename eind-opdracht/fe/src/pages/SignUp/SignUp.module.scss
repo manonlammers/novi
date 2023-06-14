@@ -3,6 +3,7 @@
 .form {
     display: flex;
     flex-flow: column;
+    width: 300px;
 }
 
 .submitWrapper {
@@ -14,8 +15,14 @@
 .submitError {
     width: 100%;
     color: $error-color;
+    text-align: center;
+    margin-bottom: $space-m;
 }
 
 .submitButton {
     width: 100%;
+}
+
+.loginLink {
+    margin-top: $space-m;
 }

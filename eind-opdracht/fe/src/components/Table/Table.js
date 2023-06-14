@@ -13,6 +13,12 @@ const Table = ({ columns, data, rowsPerPage }) => {
     const { slice, range } = useTable(tableData, page, rowsPerPage)
 
     useEffect(() => {
+        if (data) {
+            setTableData(data)
+        }
+    }, [data])
+
+    useEffect(() => {
         if (slice.length < 1 && page !== 1) {
             setPage(page - 1)
         }

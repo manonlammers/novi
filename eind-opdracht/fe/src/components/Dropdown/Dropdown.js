@@ -40,10 +40,14 @@ const Dropdown = ({
                             <li key={index} className={styles.menuItem}>
                                 {cloneElement(menuItem, {
                                     onClick: () => {
+                                        console.log('On click item')
+
                                         menuItem.props.onClick?.()
                                         if (menuItem.props.onClick) {
                                             menuItem.props.onClick()
                                         }
+
+                                        console.log('SetOpen === false')
                                         setOpen(false)
                                     }
                                 })}
