@@ -92,7 +92,7 @@ function Customers () {
                 onRowClick={(c) => onClickCustomer(c)}
             />
             <div className={styles.buttonWrapper}>
-                <Button className={styles.button} onClick={onClickButton}>Aanmaken klant</Button>
+                <Button className={styles.button} onClick={onClickCustomer}>Aanmaken klant</Button>
             </div>
         </>
     )

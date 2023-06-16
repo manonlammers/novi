@@ -64,8 +64,8 @@ public class CustomerController {
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<Customer> updateCustomer(@PathVariable long id, @RequestBody CustomerDto customerDto) {
-        
-    }
+//    @PutMapping
+//    public ResponseEntity<Customer> updateCustomer(@PathVariable long id, @RequestBody CustomerDto customerDto) {
+//
+//    }
 }
