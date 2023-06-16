@@ -23,13 +23,7 @@ public class CompanyService {
         return company.getId();
     }
 
-    public CompanyDto getCompanyById(Long id) {
-        Company company = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Company not found"));
-
-        CompanyDto cdto = new CompanyDto();
-        cdto.id = company.getId();
-        cdto.name = company.getName();
-
-        return cdto;
+    public Company getCompanyById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Company not found"));
     }
 }

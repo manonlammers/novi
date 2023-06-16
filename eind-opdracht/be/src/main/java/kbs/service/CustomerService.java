@@ -5,9 +5,10 @@ import kbs.model.Customer;
 import kbs.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
-
     private final CustomerRepository repository;
 
     public CustomerService(CustomerRepository repository) {
@@ -29,5 +30,9 @@ public class CustomerService {
 
     public Iterable<Customer> findAll() {
         return repository.findAll();
+    }
+
+    public Optional<Customer> findById(Long id) {
+        return repository.findById(id);
     }
 }

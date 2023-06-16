@@ -4,12 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jakarta.validation.Valid;
 import kbs.dto.CompanyDto;
+import kbs.model.Company;
 import kbs.service.CompanyService;
 import kbs.utils.BindingResultFieldErrorAdapter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,10 +26,10 @@ public class CompanyController {
     }
 
     @GetMapping({"/{id}"})
-    public ResponseEntity<CompanyDto> getCompany(@PathVariable Long id) {
-        CompanyDto cdto = service.getCompanyById(id);
+    public ResponseEntity<Company> getCompany(@PathVariable Long id) {
+        Company company = service.getCompanyById(id);
 
-        return ResponseEntity.ok(cdto);
+        return ResponseEntity.ok(company);
     }
 
     @PostMapping

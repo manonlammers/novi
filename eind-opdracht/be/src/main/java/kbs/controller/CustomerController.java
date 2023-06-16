@@ -50,4 +50,9 @@ public class CustomerController {
     public ResponseEntity<Iterable<Customer>> getCustomers(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Iterable<Customer>> getCustomer(@PathVariable Long id){
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+    }
 }
