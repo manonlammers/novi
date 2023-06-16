@@ -23,6 +23,21 @@
     padding: $space-m $space-ml;
 }
 
+.footer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+
+    button {
+        margin-right: $space-m;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+}
+
 .body {
     border-top: 1px solid $border-color;
     border-bottom: 1px solid $border-color;
