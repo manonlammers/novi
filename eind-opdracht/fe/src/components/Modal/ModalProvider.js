@@ -11,11 +11,12 @@ export const useModal = () => {
 export const ModalProvider = ({ children }) => {
     const [state, setState] = useState({ show: false })
 
-    const showModal = ({ title = '', children = null }) => {
+    const showModal = ({ title = '', children = null, ...rest }) => {
         setState({
             show: true,
             title,
-            children
+            children,
+            ...rest
         })
     }
 

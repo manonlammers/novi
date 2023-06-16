@@ -7,7 +7,8 @@ function Modal ({
     show = false,
     title = '',
     children = null,
-    onClose = () => {}
+    onClose = () => {},
+    onConfirm = null
 }) {
     const closeOnEscapeKeyDown = useCallback((e) => {
         if ((e.charCode || e.keyCode) === 27) {
@@ -27,6 +28,8 @@ function Modal ({
         return null
     }
 
+    console.log(onConfirm)
+
     return (
         <div className={styles.modal} onClick={onClose}>
             <div className={styles.content} onClick={e => e.stopPropagation()}>
@@ -38,6 +41,11 @@ function Modal ({
                 </div>
                 <div className={styles.footer}>
                     <Button onClick={onClose} className={styles.button}>Close</Button>
+                    {onConfirm
+                        ? (
+                            <Button onClick={onConfirm}>OK</Button>
+                        )
+                        : null}
                 </div>
             </div>
         </div>

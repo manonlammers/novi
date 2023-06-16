@@ -5,6 +5,8 @@ import kbs.model.Customer;
 import kbs.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
 
@@ -30,4 +32,13 @@ public class CustomerService {
     public Iterable<Customer> findAll() {
         return repository.findAll();
     }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
+    public Optional<Customer> findById(Long id) {
+        return repository.findById(id);
+    }
+
 }

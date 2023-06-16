@@ -7,3 +7,12 @@
 .delete {
     color: $error-color;
 }
+
+.button {
+    margin-top: $space-l;
+}
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: row-reverse;
+}

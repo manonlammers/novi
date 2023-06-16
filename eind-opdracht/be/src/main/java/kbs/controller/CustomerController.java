@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -50,4 +51,17 @@ public class CustomerController {
     public ResponseEntity<Iterable<Customer>> getCustomers(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        service.deleteById(id);
+
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<Customer> updateCustomer(@PathVariable long id, @RequestBody CustomerDto customerDto) {
+        
+    }
+
 }

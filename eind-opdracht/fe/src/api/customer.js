@@ -14,3 +14,9 @@ export const createCustomer = (data) => {
         }
     })
 }
+
+export const deleteCustomer = (id) => {
+    return fetch(`${API_URL}/customers/${id}`, {
+        method: 'DELETE'
+    })
+}
