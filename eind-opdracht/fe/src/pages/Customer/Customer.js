@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
-import styles from '../MyCompany/MyCompany.module.scss'
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import * as validationUtils from 'utils/validation'
-import * as companyAPI from 'api/customer'
+import * as customerAPI from 'api/customer'
+import * as Routes from 'constants/Routes'
+
 import TextField from 'components/Textfield/TextField'
 import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
+import styles from './Customer.module.scss'
 
-function MyCustomers () {
+function Customer () {
+    const navigate = useNavigate()
+    const params = useParams()
+
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -21,18 +27,34 @@ function MyCustomers () {
         info: ''
     })
 
-    const createCustomer = async (data) => {
+    useEffect(() => {
+        if (params.id) {
+            customerAPI.getCustomerById(params.id)
+                .then(response => response.json())
+                .then(data => setFormValues(data))
+        }
+    }, [params])
+
+    const saveCustomer = async (data) => {
         setLoading(true)
         setError(null)
 
         try {
-            const response = await companyAPI.createCustomer(data)
+            let response = null
+            if (params.id) {
+                response = await customerAPI.updateCustomer(params.id, data)
+            } else {
+                response = await customerAPI.createCustomer(data)
+            }
 
             if (response.status >= 400) {
                 return setError('Oeps, er ging iets fout')
             }
+
+            navigate(Routes.CUSTOMERS)
         } catch (e) {
             console.log(e)
+            setError('Oeps, er ging iets fout')
         } finally {
             setLoading(false)
         }
@@ -81,9 +103,8 @@ function MyCustomers () {
 
         const { isValid, errors } = validateFormValues(formValues)
         setFormErrors(errors)
-        console.log({ isValid, errors })
         if (isValid) {
-            return createCustomer(formValues)
+            return saveCustomer(formValues)
         }
     }
 
@@ -155,4 +176,4 @@ function MyCustomers () {
     )
 }
 
-export default MyCustomers
+export default Customer

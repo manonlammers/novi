@@ -68,7 +68,7 @@ const Table = ({ columns, data, rowsPerPage, onRowClick }) => {
                         )
                         : slice.map((row) => {
                             return (
-                                <tr key={row.id} onClick={() => onRowClick(row)}>
+                                <tr key={row.id} onClick={() => onRowClick?.(row)}>
                                     {Object.keys(row).map((rowKey, i) => {
                                         const column = columns.find(c => c.key?.toLowerCase() === rowKey)
                                         if (!column) {

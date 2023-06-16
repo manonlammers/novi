@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -20,6 +20,12 @@ function TextField ({
     const [focused, setFocus] = useState(false)
     const [value, setValue] = useState(props.value || '')
     const moveLabelToTop = value !== '' || focused
+
+    useEffect(() => {
+        if (props.value) {
+            setValue(props.value)
+        }
+    }, [props.value])
 
     return (
         <div

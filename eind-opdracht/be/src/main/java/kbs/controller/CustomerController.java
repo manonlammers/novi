@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jakarta.validation.Valid;
 import kbs.dto.CustomerDto;
+import kbs.exception.ResourceNotFoundException;
 import kbs.model.Customer;
 import kbs.service.CustomerService;
 import kbs.utils.BindingResultFieldErrorAdapter;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -47,25 +47,26 @@ public class CustomerController {
         return ResponseEntity.created(uri).body(customerDto);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable Long id){
+        Customer customer = service.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
     @GetMapping("/all-customers")
     public ResponseEntity<Iterable<Customer>> getCustomers(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Iterable<Customer>> getCustomer(@PathVariable Long id){
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
-    }
+    @PutMapping("{id}")
+    public ResponseEntity<String> updateCustomer(@PathVariable long id, @RequestBody CustomerDto customerDto) {
+        service.updateCustomer(id, customerDto);
 
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCustomer(@PathVariable Long id) {
         service.deleteById(id);
 
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
-
-//    @PutMapping
-//    public ResponseEntity<Customer> updateCustomer(@PathVariable long id, @RequestBody CustomerDto customerDto) {
-//
-//    }
 }

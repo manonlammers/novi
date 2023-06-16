@@ -29,6 +29,7 @@ function App () {
                 <Route path={MY_COMPANY} element={<MyCompany />} />
                 <Route path={CUSTOMERS} element={<Customers />} />
                 <Route path={CUSTOMER} element={<Customer />} />
+                <Route path={`${CUSTOMER}/:id`} element={<Customer/>} />
                 <Route path={USERS} element={<Users />} />
             </Route>
 

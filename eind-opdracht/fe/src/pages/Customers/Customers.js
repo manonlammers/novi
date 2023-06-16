@@ -47,8 +47,12 @@ function Customers () {
         })
     }
 
-    const onClickCustomer = (customer) => {
+    const handleUpdateCustomer = (customer) => {
         navigate(`${Routes.CUSTOMER}/${customer.id}`)
+    }
+
+    const handleNewCustomer = () => {
+        navigate(Routes.CUSTOMER)
     }
 
     return (
@@ -75,24 +79,23 @@ function Customers () {
                                     </div>
                                 )}
                                 menu={[
-                                    <>
-                                        <FontAwesomeIcon icon={faPen}/>
+                                    <div onClick={() => handleUpdateCustomer(c)}>
+                                        <FontAwesomeIcon icon={faPen} />
                                         <span>Wijzigen</span>
-                                    </>,
-                                    <>
+                                    </div>,
+                                    <div>
                                         <FontAwesomeIcon className={styles.delete} icon={faTrash}/>
                                         <span onClick={() => onDelete(c)}>Verwijderen</span>
-                                    </>
+                                    </div>
                                 ]}
                             />
                         )
                     }
                 })}
                 rowsPerPage={5}
-                onRowClick={(c) => onClickCustomer(c)}
             />
             <div className={styles.buttonWrapper}>
-                <Button className={styles.button} onClick={onClickCustomer}>Aanmaken klant</Button>
+                <Button className={styles.button} onClick={handleNewCustomer}>Aanmaken klant</Button>
             </div>
         </>
     )

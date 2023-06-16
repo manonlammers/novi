@@ -41,8 +41,8 @@ const Dropdown = ({
                 <div className={styles.menuWrapper} style={{ top, right, bottom, left }}>
                     <ul className={styles.menu}>
                         {menu.map((menuItem, index) => (
-                            <li key={index} className={styles.menuItem} onClick={handleOpen}>
-                                {cloneElement(menuItem)}
+                            <li key={index} onClick={handleOpen}>
+                                {cloneElement(menuItem, { className: styles.menuItem })}
                             </li>
                         ))}
                     </ul>

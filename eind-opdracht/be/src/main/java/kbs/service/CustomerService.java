@@ -39,4 +39,16 @@ public class CustomerService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    public void updateCustomer(Long id, CustomerDto customerDto) {
+        Customer customer = repository.findById(id).get();
+
+        customer.setName(customerDto.name);
+        customer.setTreatment(customerDto.treatment);
+        customer.setMinutes(customerDto.minutes);
+        customer.setPain(customerDto.pain);
+        customer.setInfo(customerDto.info);
+
+        repository.save(customer);
+    }
 }
