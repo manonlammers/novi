@@ -3,14 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 
-import * as customerAPI from '../../api/customer'
+import * as customerAPI from 'api/customer'
 import * as Routes from 'constants/Routes'
 
 import { useModal } from 'components/Modal/ModalProvider'
+
 import Table from 'components/Table/Table'
 import Dropdown from 'components/Dropdown/Dropdown'
+import Button from 'components/Button/Button'
 import styles from './Customers.module.scss'
-import Button from '../../components/Button/Button'
 
 function Customers () {
     const navigate = useNavigate()
@@ -48,11 +49,6 @@ function Customers () {
 
     const onClickCustomer = (customer) => {
         navigate(`${Routes.CUSTOMER}/${customer.id}`)
-    }
-
-    const onClickButton = () => {
-        console.log('CLICK')
-        navigate(Routes.CUSTOMER)
     }
 
     return (

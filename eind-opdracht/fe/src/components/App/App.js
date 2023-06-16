@@ -6,8 +6,9 @@ import {
     LOGIN,
     SIGN_UP,
     CUSTOMERS,
+    CUSTOMER,
     MY_COMPANY,
-    USERS, CUSTOMER
+    USERS
 } from 'constants/Routes'
 
 import DashboardLayout from 'components/DashboardLayout/DashboardLayout'
@@ -16,8 +17,8 @@ import SignUp from 'pages/SignUp/SignUp'
 import MyCompany from 'pages/MyCompany/MyCompany'
 import Components from 'pages/Components/Components'
 import Customers from 'pages/Customers/Customers'
+import Customer from 'pages/Customer/Customer'
 import Users from 'pages/Users/Users'
-import Customer from '../../pages/Customer/Customer'
 
 function App () {
     return (
