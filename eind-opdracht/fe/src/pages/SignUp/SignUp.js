@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import * as userAPI from 'api/user'
 import * as validationUtils from 'utils/validation'
 import * as Routes from 'constants/Routes'
+
+import { useUser } from 'components/UserProvider/UserProvider'
 
 import TextField from 'components/Textfield/TextField'
 import AuthLayout from 'components/AuthLayout/AuthLayout'
@@ -12,9 +13,13 @@ import Button from 'components/Button/Button'
 import styles from './SignUp.module.scss'
 
 function SignUp () {
+    const {
+        loading,
+        error,
+        signUp
+    } = useUser()
+
     const [data, setData] = useState(null)
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
 
     const [formErrors, setFormErrors] = useState({})
     const [formValues, setFormValues] = useState({
@@ -22,27 +27,6 @@ function SignUp () {
         password: '',
         repeatPassword: ''
     })
-
-    const createUser = async (data) => {
-        setLoading(true)
-        setError(null)
-
-        try {
-            const response = await userAPI.createUser(data)
-
-            if (response.status === 409) {
-                return setError('Dit email-adres bestaat al. Login!')
-            }
-            if (response.status >= 400) {
-                return setError('Oeps, er ging iets fout')
-            }
-        } catch (e) {
-            console.log(e)
-            return setError('Oeps, er ging iets fout')
-        } finally {
-            setLoading(false)
-        }
-    }
 
     const handleInputValueChange = (e) => {
         setFormValues({
@@ -87,7 +71,7 @@ function SignUp () {
         setFormErrors(errors)
         console.log({ isValid, errors })
         if (isValid) {
-            return createUser(formValues)
+            return signUp(formValues)
         }
     }
 

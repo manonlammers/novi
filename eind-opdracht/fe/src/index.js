@@ -6,15 +6,18 @@ import App from 'components/App/App'
 import ModalProvider from 'components/Modal/ModalProvider'
 import reportWebVitals from './reportWebVitals'
 import './index.scss'
+import UserProvider from './components/UserProvider/UserProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
-        <ModalProvider>
-            <Router>
-                <App />
-            </Router>
-        </ModalProvider>
+        <Router>
+            <UserProvider>
+                <ModalProvider>
+                    <App />
+                </ModalProvider>
+            </UserProvider>
+        </Router>
     </React.StrictMode>
 )
 

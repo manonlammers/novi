@@ -6,48 +6,28 @@ import * as userAPI from 'api/user'
 import * as validationUtils from 'utils/validation'
 import * as Routes from 'constants/Routes'
 
+import { useUser } from 'components/UserProvider/UserProvider'
+
 import AuthLayout from 'components/AuthLayout/AuthLayout'
 import TextField from 'components/Textfield/TextField'
 import Button from 'components/Button/Button'
 import Typography from 'components/Typography/Typography'
 
 function Login () {
+    const {
+        loading,
+        error,
+        login
+    } = useUser()
+
     const navigate = useNavigate()
     const [data, setData] = useState(null)
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
 
     const [formErrors, setFormErrors] = useState({})
     const [formValues, setFormValues] = useState({
         email: '',
         password: ''
     })
-
-    const login = async (data) => {
-        setLoading(true)
-        setError(null)
-
-        try {
-            const response = await userAPI.login(data)
-            // TODO: handle response.status 404
-            // TODO: test by: entering not existing user by email
-            // TODO: test by: entering not existing user by password
-            if (response.status >= 400) {
-                return setError('Oeps, er ging iets fout')
-            }
-            if (response.status === 404) {
-                return setError('Dit email-adres bestaat niet, registreer')
-            }
-
-            // TODO: redirect to: CMS?
-            navigate(Routes.MY_COMPANY)
-        } catch (e) {
-            console.log(e)
-            return setError('Oeps, er ging iets fout')
-        } finally {
-            setLoading(false)
-        }
-    }
 
     const handleInputValueChange = (e) => {
         const { name, value } = e.target
