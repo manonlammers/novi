@@ -20,4 +20,16 @@ export const createUser = (data) => {
     })
 }
 
+export const getAllUsers = () => {
+    return fetch(`${API_URL}/users/all-users`, {
+        method: 'GET'
+    })
+}
+
 export const updateUser = () => {}
+
+export const deleteUser = (id) => {
+    return fetch(`${API_URL}/users/${id}`, {
+        method: 'DELETE'
+    })
+}

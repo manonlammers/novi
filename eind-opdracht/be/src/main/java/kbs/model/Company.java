@@ -1,8 +1,9 @@
 package kbs.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "companies")
@@ -13,7 +14,7 @@ public class Company {
 
     private String name;
 
-    private String emailAddress;
+    private String email;
 
     private String phoneNumber;
 
@@ -21,11 +22,11 @@ public class Company {
 
     private String zipCode;
 
-    private String place;
+    private String city;
 
     private Integer kvkNumber;
 
-    private Integer btwNumber;
+    private Integer vatNumber;
 
     public Long getId() {
         return id;
@@ -43,12 +44,12 @@ public class Company {
         this.name = name;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneNumber() {
@@ -75,12 +76,12 @@ public class Company {
         this.zipCode = zipCode;
     }
 
-    public String getPlace() {
-        return place;
+    public String getCity() {
+        return city;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Integer getKvkNumber() {
@@ -91,11 +92,11 @@ public class Company {
         this.kvkNumber = kvkNumber;
     }
 
-    public int getBtwNumber() {
-        return btwNumber;
+    public int getVatNumber() {
+        return vatNumber;
     }
 
-    public void setBtwNumber(int btwNumber) {
-        this.btwNumber = btwNumber;
+    public void setVatNumber(int vatNumber) {
+        this.vatNumber = vatNumber;
     }
 }

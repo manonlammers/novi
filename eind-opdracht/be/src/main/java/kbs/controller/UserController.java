@@ -67,6 +67,18 @@ public class UserController {
 
         return ResponseEntity.created(uri).body(userDto);
     }
+
+    @GetMapping("all-users")
+    public ResponseEntity<Iterable<User>> getUsers(){
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<String> deleteUser(@PathVariable String email) {
+        service.deleteByEmail(email);
+
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
 }
 
 

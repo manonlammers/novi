@@ -40,4 +40,16 @@ public class UserService {
 
         return user.getEmailAddress();
     }
+
+    public Iterable<User> findAll() {
+        return repository.findAll();
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return repository.findById(email);
+    }
+
+    public void deleteByEmail(String email) {
+        repository.deleteById(email);
+    }
 }

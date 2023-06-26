@@ -12,7 +12,7 @@ public class CompanyDto {
 
     @Email(message = "Invalid email address")
     @NotEmpty(message = "Email address is required")
-    public String emailAddress;
+    public String email;
 
     @NotEmpty(message = "Phone number is required")
     public String phoneNumber;
@@ -20,15 +20,15 @@ public class CompanyDto {
     @NotEmpty(message = "Address is required")
     public String address;
 
-    @NotEmpty(message = "zip code is required")
+    @NotEmpty(message = "Zip code is required")
     public String zipCode;
 
-    @NotEmpty(message = "Place is required")
-    public String place;
+    @NotEmpty(message = "City is required")
+    public String city;
 
     @NotNull(message = "KVK number is required")
     public Integer kvkNumber;
 
-    @NotNull(message = "BTW number is required")
-    public Integer btwNumber;
+    @NotNull(message = "VAT number is required")
+    public Integer vatNumber;
 }

@@ -15,13 +15,13 @@ function MyCompany () {
     const [formErrors, setFormErrors] = useState({})
     const [formValues, setFormValues] = useState({
         name: '',
-        phone: '',
+        phoneNumber: '',
         email: '',
-        zipcode: '',
+        zipCode: '',
         kvkNumber: '',
         address: '',
         city: '',
-        taxNumber: ''
+        vatNumber: ''
     })
 
     const createCompany = async (data) => {
@@ -55,10 +55,10 @@ function MyCompany () {
             errors.name = 'Is vereist'
         }
 
-        if (!validationUtils.validateIsRequired(formValues.phone)) {
-            errors.phone = 'Is vereist'
-        } else if (!validationUtils.validatePhone(formValues.phone)) {
-            errors.phone = 'Ongeldige invoer'
+        if (!validationUtils.validateIsRequired(formValues.phoneNumber)) {
+            errors.phoneNumber = 'Is vereist'
+        } else if (!validationUtils.validatePhone(formValues.phoneNumber)) {
+            errors.phoneNumber = 'Ongeldige invoer'
         }
 
         if (!validationUtils.validateIsRequired(formValues.email)) {
@@ -67,10 +67,10 @@ function MyCompany () {
             errors.email = 'Ongeldige invoer'
         }
 
-        if (!validationUtils.validateIsRequired(formValues.zipcode)) {
-            errors.zipcode = 'Is vereist'
-        } else if (!validationUtils.validateZipcode(formValues.zipcode)) {
-            errors.zipcode = 'Ongeldige invoer'
+        if (!validationUtils.validateIsRequired(formValues.zipCode)) {
+            errors.zipCode = 'Is vereist'
+        } else if (!validationUtils.validateZipcode(formValues.zipCode)) {
+            errors.zipCode = 'Ongeldige invoer'
         }
 
         if (!validationUtils.validateIsRequired(formValues.kvkNumber)) {
@@ -85,8 +85,8 @@ function MyCompany () {
             errors.city = 'Is vereist'
         }
 
-        if (!validationUtils.validateIsRequired(formValues.taxNumber)) {
-            errors.taxNumber = 'Is vereist'
+        if (!validationUtils.validateIsRequired(formValues.vatNumber)) {
+            errors.vatNumber = 'Is vereist'
         }
 
         const isValid = Object.keys(errors).length === 0
@@ -137,11 +137,11 @@ function MyCompany () {
                 <div className={styles.row}>
                     <TextField
                         label='Telefoonnummer'
-                        name="phone"
+                        name="phoneNumber"
                         type="text"
                         className={styles.textField}
-                        value={formValues.phone}
-                        error={formErrors.phone}
+                        value={formValues.phoneNumber}
+                        error={formErrors.phoneNumber}
                         onChange={handleInputValueChange}
                     />
                     <TextField
@@ -157,11 +157,11 @@ function MyCompany () {
                 <div className={styles.row}>
                     <TextField
                         label='Postcode'
-                        name="zipcode"
+                        name="zipCode"
                         type="text"
                         className={styles.textField}
-                        value={formValues.zipcode}
-                        error={formErrors.zipcode}
+                        value={formValues.zipCode}
+                        error={formErrors.zipCode}
                         onChange={handleInputValueChange}
                     />
                     <TextField
@@ -187,11 +187,11 @@ function MyCompany () {
                     />
                     <TextField
                         label='BTW nummer'
-                        name="taxNumber"
+                        name="vatNumber"
                         type="text"
                         className={styles.textField}
-                        value={formValues.taxNumber}
-                        error={formErrors.taxNumber}
+                        value={formValues.vatNumber}
+                        error={formErrors.vatNumber}
                         onChange={handleInputValueChange}
                     />
                 </div>

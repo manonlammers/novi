@@ -44,53 +44,51 @@ const Table = ({ columns, data, rowsPerPage, onRowClick }) => {
             value={search}
             onChange={handleSearch}
         />
-        <div className={styles.tableWrapper}>
-            <table className={styles.table}>
-                <thead className={styles.thead}>
-                    <tr>
-                        {columns.map((column, i) => {
-                            return (
-                                <th key={i} style={column.style}>
-                                    <Typography variant="subtitle1" gutterBottom={false}>
-                                        {column.label}
-                                    </Typography>
-                                </th>
-                            )
-                        })}
-                    </tr>
-                </thead>
-                <tbody className={styles.tbody}>
-                    {slice.length === 0
-                        ? (
-                            <tr>
-                                <td>Geen resultaten gevonden</td>
+        <table className={styles.table}>
+            <thead className={styles.thead}>
+                <tr>
+                    {columns.map((column, i) => {
+                        return (
+                            <th key={i} style={column.style}>
+                                <Typography variant="subtitle1" gutterBottom={false}>
+                                    {column.label}
+                                </Typography>
+                            </th>
+                        )
+                    })}
+                </tr>
+            </thead>
+            <tbody className={styles.tbody}>
+                {slice.length === 0
+                    ? (
+                        <tr>
+                            <td>Geen resultaten gevonden</td>
+                        </tr>
+                    )
+                    : slice.map((row) => {
+                        return (
+                            <tr key={row.id} onClick={() => onRowClick?.(row)}>
+                                {Object.keys(row).map((rowKey, i) => {
+                                    const column = columns.find(c => c.key?.toLowerCase() === rowKey)
+                                    if (!column) {
+                                        return null
+                                    }
+
+                                    const rowValue = row[rowKey]
+
+                                    return (
+                                        <td key={i} style={column.style}>
+                                            <Typography variant="body1" gutterBottom={false}>
+                                                {rowValue}
+                                            </Typography>
+                                        </td>
+                                    )
+                                })}
                             </tr>
                         )
-                        : slice.map((row) => {
-                            return (
-                                <tr key={row.id} onClick={() => onRowClick?.(row)}>
-                                    {Object.keys(row).map((rowKey, i) => {
-                                        const column = columns.find(c => c.key?.toLowerCase() === rowKey)
-                                        if (!column) {
-                                            return null
-                                        }
-
-                                        const rowValue = row[rowKey]
-
-                                        return (
-                                            <td key={i} style={column.style}>
-                                                <Typography variant="body1" gutterBottom={false}>
-                                                    {rowValue}
-                                                </Typography>
-                                            </td>
-                                        )
-                                    })}
-                                </tr>
-                            )
-                        })}
-                </tbody>
-            </table>
-        </div>
+                    })}
+            </tbody>
+        </table>
         <div className={styles.footer}>
             {range.map((el, index) => (
                 <button

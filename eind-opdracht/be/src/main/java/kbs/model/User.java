@@ -1,8 +1,6 @@
 package kbs.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -10,6 +8,10 @@ public class User {
     @Id
     private String emailAddress;
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    private Company company;
 
     public String getEmailAddress() {
         return emailAddress;
@@ -25,5 +27,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
