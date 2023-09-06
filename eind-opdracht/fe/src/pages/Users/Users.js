@@ -32,12 +32,12 @@ function Users () {
         model.showModal({
             title: 'Verwijderen',
             children: (
-                <div>{`Weet u zeker dat u ${user.email} wilt verwijderen?`}</div>
+                <div>{`Weet u zeker dat u ${user.emailAddress} wilt verwijderen?`}</div>
             ),
             onConfirm: async () => {
                 try {
-                    await userAPI.deleteUser(user.email)
-                    const newUser = [...users].filter(u => u.email === user.email)
+                    await userAPI.deleteUser(user.emailAddress)
+                    const newUser = [...users].filter(u => u.emailAddress === user.emailAddress)
                     setUsers(newUser)
                     model.hideModal()
                 } catch (e) {
@@ -51,8 +51,7 @@ function Users () {
         <>
             <Table
                 columns={[
-                    // { key: 'actions', label: 'acties' },
-                    { key: 'user', label: 'Gebruiker' },
+                    { key: 'emailAddress', label: 'Gebruiker' },
                     { key: 'name', label: 'Bedrijfsnaam' },
                     { key: 'email', label: 'E-mailadres' },
                     { key: 'phone', label: 'Telefoonnummer', style: { textAlign: 'right' } },
@@ -61,6 +60,7 @@ function Users () {
                     { key: 'city', label: 'Woonplaats' },
                     { key: 'kvk', label: 'Kvk-nummer', style: { textAlign: 'right' } },
                     { key: 'btw', label: 'BTW-nummer', style: { textAlign: 'right' } },
+                    { key: 'actions', label: 'acties' }
                 ]}
                 data={users.map(u => {
                     return {

@@ -69,7 +69,7 @@ const Table = ({ columns, data, rowsPerPage, onRowClick }) => {
                         return (
                             <tr key={row.id} onClick={() => onRowClick?.(row)}>
                                 {Object.keys(row).map((rowKey, i) => {
-                                    const column = columns.find(c => c.key?.toLowerCase() === rowKey)
+                                    const column = columns.find(c => c.key === rowKey)
                                     if (!column) {
                                         return null
                                     }

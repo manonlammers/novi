@@ -68,7 +68,7 @@ public class UserController {
         return ResponseEntity.created(uri).body(userDto);
     }
 
-    @GetMapping("all-users")
+    @GetMapping("/all-users")
     public ResponseEntity<Iterable<User>> getUsers(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
