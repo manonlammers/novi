@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import styles from './Login.module.scss'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
-import * as userAPI from 'api/user'
+import * as authAPI from 'api/auth'
 import * as validationUtils from 'utils/validation'
+import { setAuthStoreData } from 'utils/authStore'
+import { setTokenHeader } from 'utils/request'
 import * as Routes from 'constants/Routes'
-
+import * as Errors from 'constants/Errors'
 import { useUser } from 'components/UserProvider/UserProvider'
 
 import AuthLayout from 'components/AuthLayout/AuthLayout'
@@ -14,20 +16,42 @@ import Button from 'components/Button/Button'
 import Typography from 'components/Typography/Typography'
 
 function Login () {
-    const {
-        loading,
-        error,
-        login
-    } = useUser()
-
     const navigate = useNavigate()
-    const [data, setData] = useState(null)
+    const { setUser } = useUser()
 
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
     const [formErrors, setFormErrors] = useState({})
     const [formValues, setFormValues] = useState({
         email: '',
         password: ''
     })
+
+    const login = async (data) => {
+        setLoading(true)
+        setError(null)
+
+        try {
+            const userResponse = await authAPI.login(data)
+            if (userResponse.status === 404) {
+                return setError(Errors.ERROR_ACCOUNT_DOES_NOT_EXIST)
+            }
+            if (userResponse.status >= 400) {
+                return setError(Errors.ERROR_OOPS)
+            }
+
+            const { token, user } = await userResponse.json()
+            setTokenHeader(token)
+            setAuthStoreData(token, user)
+            setUser(user)
+            navigate(Routes.CUSTOMERS)
+        } catch (e) {
+            console.log(e)
+            return setError(Errors.ERROR_OOPS)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const handleInputValueChange = (e) => {
         const { name, value } = e.target
@@ -75,18 +99,20 @@ function Login () {
                 <Typography variant="h5">Inloggen</Typography>
                 <TextField
                     label="E-mailadres"
-                    value={formValues.email}
-                    error={formErrors.email}
                     name="email"
                     type="email"
+                    disabled={loading}
+                    value={formValues.email}
+                    error={formErrors.email}
                     onChange={handleInputValueChange}
                 />
                 <TextField
                     label="Wachtwoord"
-                    value={formValues.password}
-                    error={formErrors.password}
                     name="password"
                     type="password"
+                    disabled={loading}
+                    value={formValues.password}
+                    error={formErrors.password}
                     onChange={handleInputValueChange}
                 />
                 <div className={styles.submitWrapper}>

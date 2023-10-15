@@ -1,22 +1,20 @@
 package kbs.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import kbs.dto.CompanyDTO;
 
-@Entity
-@Table(name = "companies")
+@Entity()
+@Table(name = "Companies")
 public class Company {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
     private String email;
 
-    private String phoneNumber;
+    private String phone;
 
     private String address;
 
@@ -27,6 +25,36 @@ public class Company {
     private Integer kvkNumber;
 
     private Integer vatNumber;
+
+    public Company() {
+
+    }
+
+    public Company(Long id) {
+        this.id = id;
+    }
+
+    public Company(
+            Long id,
+            String name,
+            String email,
+            String phone,
+            String address,
+            String zipCode,
+            String city,
+            Integer kvkNumber,
+            Integer vatNumber
+    ) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.kvkNumber = kvkNumber;
+        this.vatNumber = vatNumber;
+    }
 
     public Long getId() {
         return id;
@@ -52,12 +80,12 @@ public class Company {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAddress() {
@@ -92,11 +120,25 @@ public class Company {
         this.kvkNumber = kvkNumber;
     }
 
-    public int getVatNumber() {
+    public Integer getVatNumber() {
         return vatNumber;
     }
 
     public void setVatNumber(int vatNumber) {
         this.vatNumber = vatNumber;
+    }
+
+    public static Company fromDTO(CompanyDTO companyDTO) {
+        return new Company(
+                companyDTO.id,
+                companyDTO.name,
+                companyDTO.email,
+                companyDTO.phone,
+                companyDTO.address,
+                companyDTO.zipCode,
+                companyDTO.city,
+                companyDTO.kvkNumber != null ? Integer.parseInt(companyDTO.kvkNumber) : null,
+                companyDTO.vatNumber != null ? Integer.parseInt(companyDTO.vatNumber) : null
+        );
     }
 }

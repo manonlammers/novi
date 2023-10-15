@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import * as customerAPI from 'api/customer'
 import * as Routes from 'constants/Routes'
-
+import { useUser } from 'components/UserProvider/UserProvider'
 import { useModal } from 'components/Modal/ModalProvider'
 
 import Table from 'components/Table/Table'
@@ -16,16 +16,30 @@ import styles from './Customers.module.scss'
 function Customers () {
     const navigate = useNavigate()
     const modal = useModal()
+    const { user } = useUser()
+
     const [customers, setCustomers] = useState([])
 
     const fetchCustomers = async () => {
-        const response = await customerAPI.getAllCustomers()
-        const allCustomers = await response.json()
-        setCustomers(allCustomers)
+        if (!user?.company?.id) return
+
+        try {
+            const response = await customerAPI.getAllCustomersByCompanyId(user?.company?.id)
+            const allCustomers = await response.json()
+            if (response.status !== 200) {
+                // TODO: show pretty error alert component
+                return
+            }
+            setCustomers(allCustomers)
+        } catch (e) {
+            console.log(e)
+            // TODO: show pretty error alert component
+        }
     }
 
     useEffect(() => {
         fetchCustomers()
+        /* eslint-disable-next-line */
     }, [])
 
     const onDelete = (customer) => {
@@ -36,8 +50,10 @@ function Customers () {
             ),
             onConfirm: async () => {
                 try {
-                    await customerAPI.deleteCustomer(customer.id)
-                    const newCustomers = [...customers].filter(c => c.id === customer.id)
+                    const response = await customerAPI.deleteCustomer(customer.id)
+                    if (response.status !== 200) return
+
+                    const newCustomers = [...customers].filter(c => c.id !== customer.id)
                     setCustomers(newCustomers)
                     modal.hideModal()
                 } catch (e) {

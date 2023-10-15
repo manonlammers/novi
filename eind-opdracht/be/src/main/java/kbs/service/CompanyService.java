@@ -1,10 +1,14 @@
 package kbs.service;
 
-import kbs.dto.CompanyDto;
 import kbs.exception.ResourceNotFoundException;
 import kbs.model.Company;
+import kbs.model.Customer;
+import kbs.model.User;
 import kbs.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
 
 @Service
 public class CompanyService {
@@ -14,16 +18,11 @@ public class CompanyService {
         this.repository = repository;
     }
 
-    public Long createCompany(CompanyDto cdto) {
-        Company company = new Company();
-        company.setName(cdto.name);
-
-        repository.save(company);
-
-        return company.getId();
+    public Company findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Company not found"));
     }
 
-    public Company getCompanyById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Company not found"));
+    public Company save(Company company) {
+        return repository.save(company);
     }
 }

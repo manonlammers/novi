@@ -10,15 +10,13 @@ import UserProvider from './components/UserProvider/UserProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-    <React.StrictMode>
-        <Router>
-            <UserProvider>
-                <ModalProvider>
-                    <App />
-                </ModalProvider>
-            </UserProvider>
-        </Router>
-    </React.StrictMode>
+    <Router>
+        <UserProvider>
+            <ModalProvider>
+                <App />
+            </ModalProvider>
+        </UserProvider>
+    </Router>
 )
 
 // If you want to start measuring performance in your app, pass a function

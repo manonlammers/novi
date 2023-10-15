@@ -1,8 +1,10 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 
-import * as userAPI from 'api/user'
+import * as authAPI from 'api/auth'
+import { getAuthStoreData, clearAuthStoreData, setAuthStoreData } from 'utils/authStore'
+import { setTokenHeader, clearTokenheader } from 'utils/request'
 import * as Routes from 'constants/Routes'
 
 export const UserContext = createContext({})
@@ -12,75 +14,67 @@ export const useUser = () => {
 }
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
     const navigate = useNavigate()
+    const [didInitialize, setDidInitialize] = useState(false)
+    const [user, setUser] = useState(null)
+    const [company, setCompany] = useState(null)
+    const [customers, setCustomers] = useState([])
 
-    const login = async (data) => {
-        setLoading(true)
-        setError(null)
+    const initialize = async (user) => {
+        const auth = getAuthStoreData()
+        if (!auth) {
+            return setDidInitialize(true)
+        }
 
         try {
-            const response = await userAPI.login(data)
-            if (response.status >= 400) {
-                return setError('Oeps, er ging iets fout')
-            }
-            if (response.status === 404) {
-                return setError('Dit email-adres bestaat niet, registreer')
-            }
-
-            const user = await response.json()
-            setUser(user)
-
-            navigate(Routes.CUSTOMERS)
+            const response = await authAPI.login(auth.user)
+            if (response.status !== 201) return
+            const { token, user: newUser } = await response.json()
+            setTokenHeader(token)
+            setAuthStoreData(token, newUser)
+            setUser(newUser)
         } catch (e) {
             console.log(e)
-            return setError('Oeps, er ging iets fout')
         } finally {
-            setLoading(false)
+            setDidInitialize(true)
         }
     }
 
-    const signUp = async (data) => {
-        setLoading(true)
-        setError(null)
+    const logout = () => {
+        clearTokenheader()
+        clearAuthStoreData()
 
-        try {
-            const response = await userAPI.createUser(data)
+        setUser(null)
+        setCompany(null)
+        setCustomers([])
 
-            if (response.status === 409) {
-                return setError('Dit email-adres bestaat al. Login!')
-            }
-            if (response.status >= 400) {
-                return setError('Oeps, er ging iets fout')
-            }
-
-            const user = await response.json()
-            setUser(user)
-        } catch (e) {
-            console.log(e)
-            return setError('Oeps, er ging iets fout')
-        } finally {
-            setLoading(false)
-        }
+        navigate(Routes.LOGIN)
     }
-
-    const logout = () => {}
 
     const values = {
         user,
-        loading,
-        error,
+        company,
+        customers,
 
-        login,
-        signUp,
+        setUser,
+        setCompany,
+        setCustomers,
+
         logout
     }
 
+    useEffect(() => {
+        initialize()
+    }, [])
+
+    console.log('UserProvider: ', {
+        user,
+        didInitialize
+    })
+
     return (
         <UserContext.Provider value={values}>
-            {children}
+            {didInitialize && children}
         </UserContext.Provider>
     )
 }

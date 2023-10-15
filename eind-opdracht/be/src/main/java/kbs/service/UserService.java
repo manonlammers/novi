@@ -1,6 +1,5 @@
 package kbs.service;
 
-import kbs.dto.UserDto;
 import kbs.model.User;
 import kbs.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -16,40 +15,14 @@ public class UserService {
     }
 
     public Optional<User> getUserByEmail(String email) {
-        return repository.findById(email);
+        return repository.findByEmail(email);
     }
 
-//    public Optional<User> getUserByEmailAndPassword(String email, String password) {
-//        Optional<User> user = repository.findById(email);
-//
-//        if (user.isEmpty()) {
-//            return user;
-//        }
-//
-//        if (!user.get().getPassword().equals(password)) {
-//
-//        }
-//    }
-
-    public String createUser(UserDto udto) {
-        User user = new User();
-        user.setEmailAddress(udto.email);
-        user.setPassword(udto.password);
-
-        repository.save(user);
-
-        return user.getEmailAddress();
+    public Optional<User> getById(Long id) {
+        return repository.findById(id);
     }
 
-    public Iterable<User> findAll() {
-        return repository.findAll();
-    }
-
-    public Optional<User> findByEmail(String email) {
-        return repository.findById(email);
-    }
-
-    public void deleteByEmail(String email) {
-        repository.deleteById(email);
+    public User save(User user) {
+        return repository.save(user);
     }
 }

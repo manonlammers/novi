@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 
 import * as companyAPI from 'api/company'
+import * as Errors from 'constants/Errors'
 import * as validationUtils from 'utils/validation'
+import { useUser } from 'components/UserProvider/UserProvider'
+
 import Typography from 'components/Typography/Typography'
 import TextField from 'components/Textfield/TextField'
 import Button from 'components/Button/Button'
 import styles from './MyCompany.module.scss'
 
 function MyCompany () {
-    const [data, setData] = useState(null)
+    const { user, setUser } = useUser()
+
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
-
     const [formErrors, setFormErrors] = useState({})
     const [formValues, setFormValues] = useState({
         name: '',
@@ -21,25 +24,9 @@ function MyCompany () {
         kvkNumber: '',
         address: '',
         city: '',
-        vatNumber: ''
+        vatNumber: '',
+        ...user?.company
     })
-
-    const createCompany = async (data) => {
-        setLoading(true)
-        setError(null)
-
-        try {
-            const response = await companyAPI.createCompany(data)
-
-            if (response.status >= 400) {
-                return setError('Oeps, er ging iets fout')
-            }
-        } catch (e) {
-            console.log(e)
-        } finally {
-            setLoading(false)
-        }
-    }
 
     const handleInputValueChange = (e) => {
         setFormValues({
@@ -55,10 +42,10 @@ function MyCompany () {
             errors.name = 'Is vereist'
         }
 
-        if (!validationUtils.validateIsRequired(formValues.phoneNumber)) {
-            errors.phoneNumber = 'Is vereist'
-        } else if (!validationUtils.validatePhone(formValues.phoneNumber)) {
-            errors.phoneNumber = 'Ongeldige invoer'
+        if (!validationUtils.validateIsRequired(formValues.phone)) {
+            errors.phone = 'Is vereist'
+        } else if (!validationUtils.validatePhone(formValues.phone)) {
+            errors.phone = 'Ongeldige invoer'
         }
 
         if (!validationUtils.validateIsRequired(formValues.email)) {
@@ -97,19 +84,51 @@ function MyCompany () {
         }
     }
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault()
 
         const { isValid, errors } = validateFormValues(formValues)
         setFormErrors(errors)
-        console.log({ isValid, errors })
-        if (isValid) {
-            return createCompany(formValues)
+        if (!isValid) return
+
+        setLoading(true)
+        setError(null)
+
+        try {
+            const response = await companyAPI.updateOrCreateCompany(formValues)
+            if (response.status >= 400) {
+                return setError(Errors.ERROR_OOPS)
+            }
+
+            const updatedCompany = await response.json()
+            const didConfigure = !user.company.isConfigured && updatedCompany.isConfigured
+            setFormValues(updatedCompany)
+            setUser({ ...user, company: updatedCompany })
+
+            // TODO: show pretty success alert component
+            if (didConfigure) {
+                window.alert('Je bent helemaal klaar met het opzetten van all informatie. Tijd om je klanten te gaan beheren! Klik op "KBS" in het menu om verder te gaan.')
+            }
+        } catch (e) {
+            setError(Errors.ERROR_OOPS)
+            console.log(e)
+        } finally {
+            setLoading(false)
         }
     }
 
     return (
         <>
+            <div className={styles.pageHeading}>
+                <Typography variant="subtitle1">
+                    Vul uw bedrijfsgegevens in
+                </Typography>
+                {!user?.company?.isConfigured && (
+                    <Typography variant="body1" gutterBottom>
+                        Vertel ons wat meer over uw bedrijf voordat u verder kunt gaan met het beheren van uw klanten systeem.
+                    </Typography>
+                )}
+            </div>
             <form
                 className={styles.form}
                 onSubmit={handleFormSubmit}
@@ -129,6 +148,7 @@ function MyCompany () {
                         name="email"
                         type="text"
                         className={styles.textField}
+                        disabled={loading}
                         value={formValues.email}
                         error={formErrors.email}
                         onChange={handleInputValueChange}
@@ -137,17 +157,19 @@ function MyCompany () {
                 <div className={styles.row}>
                     <TextField
                         label='Telefoonnummer'
-                        name="phoneNumber"
+                        name="phone"
                         type="text"
+                        disabled={loading}
                         className={styles.textField}
-                        value={formValues.phoneNumber}
-                        error={formErrors.phoneNumber}
+                        value={formValues.phone}
+                        error={formErrors.phone}
                         onChange={handleInputValueChange}
                     />
                     <TextField
                         label='Adres'
                         name="address"
                         type="text"
+                        disabled={loading}
                         className={styles.textField}
                         value={formValues.address}
                         error={formErrors.address}
@@ -159,6 +181,7 @@ function MyCompany () {
                         label='Postcode'
                         name="zipCode"
                         type="text"
+                        disabled={loading}
                         className={styles.textField}
                         value={formValues.zipCode}
                         error={formErrors.zipCode}
@@ -168,6 +191,7 @@ function MyCompany () {
                         label='Woonplaats'
                         name="city"
                         type="text"
+                        disabled={loading}
                         className={styles.textField}
                         value={formValues.city}
                         error={formErrors.city}
@@ -180,6 +204,7 @@ function MyCompany () {
                         label='Kvk nummer'
                         name="kvkNumber"
                         type="text"
+                        disabled={loading}
                         className={styles.textField}
                         value={formValues.kvkNumber}
                         error={formErrors.kvkNumber}
@@ -189,6 +214,7 @@ function MyCompany () {
                         label='BTW nummer'
                         name="vatNumber"
                         type="text"
+                        disabled={loading}
                         className={styles.textField}
                         value={formValues.vatNumber}
                         error={formErrors.vatNumber}

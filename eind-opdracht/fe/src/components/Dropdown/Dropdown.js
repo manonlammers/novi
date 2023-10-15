@@ -2,7 +2,7 @@ import React, { useRef, useState, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import { useOutsideClick } from 'hooks/useOutsideClick'
+import useOutsideClick from 'hooks/useOutsideClick'
 import styles from './Dropdown.module.scss'
 
 const Dropdown = ({

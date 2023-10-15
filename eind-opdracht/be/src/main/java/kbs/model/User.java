@@ -1,24 +1,60 @@
 package kbs.model;
 
 import jakarta.persistence.*;
+import kbs.dto.UserDTO;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
-    private String emailAddress;
-    private String password;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;
 
-    public String getEmailAddress() {
-        return emailAddress;
+    private String email;
+
+    private String password;
+
+    public User() {
+
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public User(
+            Long id,
+            Company company,
+            String email,
+            String password
+    ) {
+        this.id = id;
+        this.company = company;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -29,11 +65,12 @@ public class User {
         this.password = password;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
+    public static User fromDTO(UserDTO userDTO) {
+        return new User(
+                userDTO.id,
+                userDTO.company != null ? Company.fromDTO(userDTO.company) : null,
+                userDTO.email,
+                userDTO.password
+        );
     }
 }

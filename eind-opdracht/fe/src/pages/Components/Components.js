@@ -6,7 +6,6 @@ import Typography from 'components/Typography/Typography'
 import Button from 'components/Button/Button'
 import TextField from 'components/Textfield/TextField'
 import Dropdown from 'components/Dropdown/Dropdown'
-import Modal from 'components/Modal/Modal'
 
 export const Components = () => {
     const modal = useModal()

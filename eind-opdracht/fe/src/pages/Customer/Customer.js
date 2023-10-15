@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import * as validationUtils from 'utils/validation'
 import * as customerAPI from 'api/customer'
 import * as Routes from 'constants/Routes'
+import { useUser } from 'components/UserProvider/UserProvider'
 
 import TextField from 'components/Textfield/TextField'
 import Typography from 'components/Typography/Typography'
@@ -13,18 +14,18 @@ import styles from './Customer.module.scss'
 function Customer () {
     const navigate = useNavigate()
     const params = useParams()
+    const { user } = useUser()
 
-    const [data, setData] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
-
     const [formErrors, setFormErrors] = useState({})
     const [formValues, setFormValues] = useState({
         name: '',
         treatment: '',
         minutes: '',
         pain: '',
-        info: ''
+        info: '',
+        companyId: user?.company?.id
     })
 
     useEffect(() => {
@@ -40,13 +41,7 @@ function Customer () {
         setError(null)
 
         try {
-            let response = null
-            if (params.id) {
-                response = await customerAPI.updateCustomer(params.id, data)
-            } else {
-                response = await customerAPI.createCustomer(data)
-            }
-
+            const response = await customerAPI.updateOrCreateCustomer(data)
             if (response.status >= 400) {
                 return setError('Oeps, er ging iets fout')
             }

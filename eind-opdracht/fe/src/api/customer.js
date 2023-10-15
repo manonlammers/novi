@@ -1,38 +1,32 @@
-const API_URL = 'http://localhost:8080'
+import request from 'utils/request'
 
 export const createCustomer = (data) => {
-    return fetch(`${API_URL}/customers`, {
+    return request('customers', {
         method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        body: data
     })
 }
 
 export const getCustomerById = (id) => {
-    return fetch(`${API_URL}/customers/${id}`, {
+    return request(`customers/${id}`, {
         method: 'GET'
     })
 }
-export const getAllCustomers = () => {
-    return fetch(`${API_URL}/customers/all-customers`, {
+export const getAllCustomersByCompanyId = (companyId) => {
+    return request(`customers/all-customers/${companyId}`, {
         method: 'GET'
     })
 }
 
-export const updateCustomer = (id, data) => {
-    return fetch(`${API_URL}/customers/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+export const updateOrCreateCustomer = (data) => {
+    return request('customers', {
+        method: 'POST',
+        body: data
     })
 }
 
 export const deleteCustomer = (id) => {
-    return fetch(`${API_URL}/customers/${id}`, {
+    return request(`customers/${id}`, {
         method: 'DELETE'
     })
 }

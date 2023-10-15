@@ -1,8 +1,19 @@
 @import 'src/styles/_base.scss';
 
+.pageHeading {
+    margin-bottom: $space-l;
+
+    h6 {
+
+    }
+
+    p {
+
+    }
+}
+
 .form {
     margin: 0 auto;
-    max-width: 600px;
 }
 
 .row {
@@ -28,6 +39,7 @@
 .submitError {
     width: 100%;
     color: $error-color;
+    margin-bottom: $space-m !important;
 }
 
 .submitButton {

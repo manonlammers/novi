@@ -1,5 +1,5 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 
 import {
     HOME,
@@ -10,6 +10,8 @@ import {
     MY_COMPANY,
     USERS
 } from 'constants/Routes'
+import { useUser } from 'components/UserProvider/UserProvider'
+import usePrevious from 'hooks/usePrevious'
 
 import DashboardLayout from 'components/DashboardLayout/DashboardLayout'
 import Login from 'pages/Login/Login'
@@ -21,6 +23,32 @@ import Customer from 'pages/Customer/Customer'
 import Users from 'pages/Users/Users'
 
 function App () {
+    const navigate = useNavigate()
+    const location = useLocation()
+    const { user } = useUser()
+    const prevUser = usePrevious(user)
+
+    useEffect(() => {
+        if (
+            location.pathname === LOGIN ||
+            location.pathname === SIGN_UP
+        ) {
+            return
+        }
+
+        if (!prevUser && user) {
+            navigate(CUSTOMERS)
+        }
+
+        if (!user) {
+            return navigate(LOGIN)
+        }
+
+        if (!user?.company?.isConfigured) {
+            return navigate(MY_COMPANY)
+        }
+    }, [navigate, location.pathname, user])
+
     return (
         <Routes>
             <Route path={LOGIN} element={<Login />} />

@@ -28,8 +28,6 @@ function Modal ({
         return null
     }
 
-    console.log(onConfirm)
-
     return (
         <div className={styles.modal} onClick={onClose}>
             <div className={styles.content} onClick={e => e.stopPropagation()}>

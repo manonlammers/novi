@@ -52,7 +52,12 @@
     justify-content: center;
 
     @include media("<tablet") {
+        padding: $space-xl $space-l;
         width: 100%;
+
+        form {
+            width: 100%;
+        }
     }
 }
 

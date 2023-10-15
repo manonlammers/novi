@@ -1,15 +1,8 @@
-const API_URL = 'http://localhost:8080'
+import request from 'utils/request'
 
-export const getCompanyById = () => {}
-
-export const createCompany = (data) => {
-    return fetch(`${API_URL}/companies`, {
+export const updateOrCreateCompany = (data) => {
+    return request('companies', {
         method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        body: data
     })
 }
-
-export const updateCompany = () => {}

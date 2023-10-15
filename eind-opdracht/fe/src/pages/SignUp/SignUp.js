@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
+import * as userAPI from 'api/user'
 import * as validationUtils from 'utils/validation'
 import * as Routes from 'constants/Routes'
-
+import * as Errors from 'constants/Errors'
 import { useUser } from 'components/UserProvider/UserProvider'
 
 import TextField from 'components/Textfield/TextField'
@@ -13,20 +14,45 @@ import Button from 'components/Button/Button'
 import styles from './SignUp.module.scss'
 
 function SignUp () {
-    const {
-        loading,
-        error,
-        signUp
-    } = useUser()
+    const navigate = useNavigate()
+    const { setUser } = useUser()
 
-    const [data, setData] = useState(null)
-
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
     const [formErrors, setFormErrors] = useState({})
     const [formValues, setFormValues] = useState({
         email: '',
         password: '',
         repeatPassword: ''
     })
+
+    const signUp = async (data) => {
+        setLoading(true)
+        setError(null)
+
+        try {
+            delete data.repeatPassword
+            const response = await userAPI.createUser(data)
+
+            if (response.status === 409) {
+                return setError(Errors.ERROR_ACCOUNT_ALREADY_EXISTS)
+            }
+            if (response.status >= 400) {
+                return setError(Errors.ERROR_OOPS)
+            }
+
+            const user = await response.json()
+            setUser(user)
+            // TODO: show pretty success alert component
+            window.alert('Je account is succesvol geregistreerd. Nu kan je je aanmelden.')
+            navigate(Routes.LOGIN)
+        } catch (e) {
+            console.log(e)
+            return setError(Errors.ERROR_OOPS)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const handleInputValueChange = (e) => {
         setFormValues({
@@ -69,7 +95,6 @@ function SignUp () {
 
         const { isValid, errors } = validateFormValues(formValues)
         setFormErrors(errors)
-        console.log({ isValid, errors })
         if (isValid) {
             return signUp(formValues)
         }
@@ -86,26 +111,29 @@ function SignUp () {
                 <Typography variant="h5">Registreren</Typography>
                 <TextField
                     label="E-mailadres"
-                    value={formValues.email}
-                    error={formErrors.email}
                     name="email"
                     type="email"
+                    disabled={loading}
+                    value={formValues.email}
+                    error={formErrors.email}
                     onChange={handleInputValueChange}
                 />
                 <TextField
                     label="Wachtwoord"
-                    value={formValues.password}
-                    error={formErrors.password}
                     name="password"
                     type="password"
+                    disabled={loading}
+                    value={formValues.password}
+                    error={formErrors.password}
                     onChange={handleInputValueChange}
                 />
                 <TextField
                     label="Herhaal wachtwoord"
-                    value={formValues.repeatPassword}
-                    error={formErrors.repeatPassword}
                     name="repeatPassword"
                     type="password"
+                    disabled={loading}
+                    value={formValues.repeatPassword}
+                    error={formErrors.repeatPassword}
                     onChange={handleInputValueChange}
                 />
                 <div className={styles.submitWrapper}>

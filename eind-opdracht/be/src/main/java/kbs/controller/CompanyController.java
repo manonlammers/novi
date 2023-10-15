@@ -3,7 +3,7 @@ package kbs.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jakarta.validation.Valid;
-import kbs.dto.CompanyDto;
+import kbs.dto.CompanyDTO;
 import kbs.model.Company;
 import kbs.service.CompanyService;
 import kbs.utils.BindingResultFieldErrorAdapter;
@@ -19,21 +19,20 @@ import java.net.URI;
 @RestController
 @RequestMapping("companies")
 public class CompanyController {
-    private final CompanyService service;
+    private final CompanyService companyService;
 
-    public CompanyController(CompanyService service) {
-        this.service = service;
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
     }
 
-    @GetMapping({"/{id}"})
-    public ResponseEntity<Company> getCompany(@PathVariable Long id) {
-        Company company = service.getCompanyById(id);
-
-        return ResponseEntity.ok(company);
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getById(@PathVariable Long id) {
+        Company company = companyService.findById(id);
+        return new ResponseEntity<>(CompanyDTO.fromCompany(company), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Object> createCompany(@Valid @RequestBody CompanyDto cdto, BindingResult bindingResult) {
+    @PostMapping()
+    public ResponseEntity<Object> updateOrCreate(@Valid @RequestBody CompanyDTO companyDTO, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeHierarchyAdapter(BindingResult.class, new BindingResultFieldErrorAdapter());
@@ -42,14 +41,13 @@ public class CompanyController {
             return new ResponseEntity<>(gson.toJson(bindingResult), HttpStatus.BAD_REQUEST);
         }
 
-        Long id = service.createCompany(cdto);
-        cdto.id = id;
-
+        Company company = companyService.save(Company.fromDTO(companyDTO));
         URI uri = URI.create(ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/" + id)
+                .fromCurrentRequest().path("/" + company.getId())
                 .toUriString());
 
-        return ResponseEntity.created(uri).body(cdto);
+        return ResponseEntity.created(uri).body(CompanyDTO.fromCompany(company));
     }
 }
+
 
