@@ -4,7 +4,6 @@ import { useNavigate, Link } from 'react-router-dom'
 
 import * as authAPI from 'api/auth'
 import * as validationUtils from 'utils/validation'
-import { setAuthStoreData } from 'utils/authStore'
 import { setTokenHeader } from 'utils/request'
 import * as Routes from 'constants/Routes'
 import * as Errors from 'constants/Errors'
@@ -33,16 +32,12 @@ function Login () {
 
         try {
             const userResponse = await authAPI.login(data)
-            if (userResponse.status === 404) {
+            if (userResponse.status === 401) {
                 return setError(Errors.ERROR_ACCOUNT_DOES_NOT_EXIST)
-            }
-            if (userResponse.status >= 400) {
-                return setError(Errors.ERROR_OOPS)
             }
 
             const { token, user } = await userResponse.json()
             setTokenHeader(token)
-            setAuthStoreData(token, user)
             setUser(user)
             navigate(Routes.CUSTOMERS)
         } catch (e) {

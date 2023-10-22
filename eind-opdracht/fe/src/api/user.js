@@ -6,15 +6,3 @@ export const createUser = (data) => {
         body: data
     })
 }
-
-export const getAllUsers = () => {
-    return request('users/all-users', {
-        method: 'GET'
-    })
-}
-
-export const deleteUser = (id) => {
-    return request(`users/${id}`, {
-        method: 'DELETE'
-    })
-}

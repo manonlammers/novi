@@ -14,6 +14,10 @@ public class UserService {
         this.repository = repository;
     }
 
+    public Optional<User> getUserByID(Long id) {
+        return repository.findById(id);
+    }
+
     public Optional<User> getUserByEmail(String email) {
         return repository.findByEmail(email);
     }
@@ -24,5 +28,13 @@ public class UserService {
 
     public User save(User user) {
         return repository.save(user);
+    }
+
+    public Iterable<User> findAll() {
+        return repository.findAll();
+    }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 }

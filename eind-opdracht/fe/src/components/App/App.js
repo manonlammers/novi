@@ -10,8 +10,8 @@ import {
     MY_COMPANY,
     USERS
 } from 'constants/Routes'
+import { ADMIN } from 'constants/UserRoles'
 import { useUser } from 'components/UserProvider/UserProvider'
-import usePrevious from 'hooks/usePrevious'
 
 import DashboardLayout from 'components/DashboardLayout/DashboardLayout'
 import Login from 'pages/Login/Login'
@@ -26,7 +26,6 @@ function App () {
     const navigate = useNavigate()
     const location = useLocation()
     const { user } = useUser()
-    const prevUser = usePrevious(user)
 
     useEffect(() => {
         if (
@@ -36,12 +35,12 @@ function App () {
             return
         }
 
-        if (!prevUser && user) {
-            navigate(CUSTOMERS)
-        }
-
         if (!user) {
             return navigate(LOGIN)
+        }
+
+        if (user?.role === ADMIN) {
+            return navigate(USERS)
         }
 
         if (!user?.company?.isConfigured) {

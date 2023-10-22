@@ -2,12 +2,8 @@ package kbs.service;
 
 import kbs.exception.ResourceNotFoundException;
 import kbs.model.Company;
-import kbs.model.Customer;
-import kbs.model.User;
 import kbs.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 
 @Service
@@ -24,5 +20,10 @@ public class CompanyService {
 
     public Company save(Company company) {
         return repository.save(company);
+    }
+
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 }

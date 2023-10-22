@@ -5,32 +5,38 @@ import com.google.gson.GsonBuilder;
 import jakarta.validation.Valid;
 import kbs.dto.UserDTO;
 import kbs.model.Company;
+import kbs.model.Role;
 import kbs.model.User;
 import kbs.service.CompanyService;
+import kbs.service.RoleService;
 import kbs.service.UserService;
 import kbs.utils.BindingResultFieldErrorAdapter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
-@RequestMapping("users")
 public class UserController {
-
+    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final RoleService roleService;
     private final CompanyService companyService;
 
-    public UserController(UserService userService, CompanyService companyService) {
+
+    public UserController(PasswordEncoder passwordEncoder, UserService userService, RoleService roleService, CompanyService companyService) {
+        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
+        this.roleService = roleService;
         this.companyService = companyService;
     }
 
-    @PostMapping("/sign-up")
+    @PostMapping("/users/sign-up")
     public ResponseEntity<Object> signUp(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             GsonBuilder builder = new GsonBuilder();
@@ -44,16 +50,20 @@ public class UserController {
             return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
         }
 
-        User user = userService.save(User.fromDTO(userDTO));
+        Role userRole = roleService.findByRolename("USER").get();
+        List<Role> userRoles = new ArrayList<>();
+        userRoles.add(userRole);
+
         Company userCompany = companyService.save(new Company());
+
+        User user = userService.save(User.fromDTO(userDTO));
+        user.setPassword(passwordEncoder.encode(userDTO.password));
         user.setCompany(userCompany);
+        user.setRoles(userRoles);
+
         userService.save(user);
 
-        URI uri = URI.create(ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/" + user.getEmail())
-                .toUriString());
-
-        return ResponseEntity.created(uri).body(UserDTO.fromUser(user));
+        return ResponseEntity.ok().body(UserDTO.fromUser(user));
     }
 }
 

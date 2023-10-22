@@ -1,17 +1,14 @@
-/* eslint-disable */
-import React, {useEffect, useState} from 'react'
-import { useNavigate}  from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEllipsisVertical, faTrash } from '@fortawesome/free-solid-svg-icons'
 
-import * as userAPI from 'api/user'
-import * as Routes from 'constants/Routes'
-
+import * as adminAPI from 'api/admin'
 import { useModal } from 'components/Modal/ModalProvider'
 
 import Table from 'components/Table/Table'
-import Dropdown from "../../components/Dropdown/Dropdown";
-import styles from "../Customers/Customers.module.scss";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEllipsisVertical, faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
+import Dropdown from 'components/Dropdown/Dropdown'
+import styles from './Users.module.scss'
 
 function Users () {
     const navigate = useNavigate()
@@ -19,9 +16,39 @@ function Users () {
     const [users, setUsers] = useState([])
 
     const fetchUsers = async () => {
-        const response = await userAPI.getAllUsers()
-        const allUsers = await response.json()
-        setUsers(allUsers)
+        try {
+            const response = await adminAPI.getAllUsers()
+            if (response.status !== 200) {
+                // TODO: show pretty error alert component
+                return
+            }
+            const allUsers = await response.json()
+            setUsers(allUsers)
+            setUsers(allUsers.map(u => {
+                if (u?.company?.isConfigured) {
+                    return {
+                        ...u,
+                        name: u.company.name,
+                        contact: `Email:${u.company.email}, Telefoon:${u.company.phone}`,
+                        address: `${u.company.address}, ${u.company.zipCode}, ${u.company.city}`,
+                        vatNumber: u.company.vatNumber,
+                        kvkNumber: u.company.kvkNumber
+                    }
+                }
+
+                return {
+                    ...u,
+                    name: '-',
+                    contact: '-',
+                    address: '-',
+                    vatNumber: '-',
+                    kvkNumber: '-'
+                }
+            }))
+        } catch (e) {
+            console.log(e)
+            // TODO: show pretty error alert component
+        }
     }
 
     useEffect(() => {
@@ -32,16 +59,21 @@ function Users () {
         model.showModal({
             title: 'Verwijderen',
             children: (
-                <div>{`Weet u zeker dat u ${user.emailAddress} wilt verwijderen?`}</div>
+                <div>{`Weet u zeker dat u ${user.email} wilt verwijderen?`}</div>
             ),
             onConfirm: async () => {
                 try {
-                    await userAPI.deleteUser(user.emailAddress)
-                    const newUser = [...users].filter(u => u.emailAddress === user.emailAddress)
+                    const response = await adminAPI.deleteUser(user.id)
+                    if (response.status !== 204) {
+                        // TODO: show pretty error alert component
+                        return
+                    }
+                    const newUser = [...users].filter(u => u.id !== user.id)
                     setUsers(newUser)
                     model.hideModal()
                 } catch (e) {
                     console.log(e)
+                    // TODO: show pretty error alert component
                 }
             }
         })
@@ -51,15 +83,12 @@ function Users () {
         <>
             <Table
                 columns={[
-                    { key: 'emailAddress', label: 'Gebruiker' },
+                    { key: 'email', label: 'Gebruiker email' },
                     { key: 'name', label: 'Bedrijfsnaam' },
-                    { key: 'email', label: 'E-mailadres' },
-                    { key: 'phone', label: 'Telefoonnummer', style: { textAlign: 'right' } },
-                    { key: 'adres', label: 'Adres' },
-                    { key: 'postcode', label: 'Postcode', style: { textAlign: 'right' } },
-                    { key: 'city', label: 'Woonplaats' },
-                    { key: 'kvk', label: 'Kvk-nummer', style: { textAlign: 'right' } },
-                    { key: 'btw', label: 'BTW-nummer', style: { textAlign: 'right' } },
+                    { key: 'contact', label: 'Contact' },
+                    { key: 'address', label: 'Adres' },
+                    { key: 'kvkNumber', label: 'Kvk-nummer', style: { textAlign: 'right' } },
+                    { key: 'vatNumber', label: 'BTW-nummer', style: { textAlign: 'right' } },
                     { key: 'actions', label: 'acties' }
                 ]}
                 data={users.map(u => {

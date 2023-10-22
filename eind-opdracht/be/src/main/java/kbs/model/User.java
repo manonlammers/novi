@@ -3,6 +3,8 @@ package kbs.model;
 import jakarta.persistence.*;
 import kbs.dto.UserDTO;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -10,8 +12,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        fetch = FetchType.LAZY
+    )
     private Company company;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles;
 
     private String email;
 
@@ -47,6 +56,14 @@ public class User {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     public String getEmail() {

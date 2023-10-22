@@ -1,0 +1,18 @@
+@import "src/styles/_base.scss";
+
+.dropdownTrigger {
+    padding: $space-s;
+}
+
+.delete {
+    color: $error-color;
+}
+
+.button {
+    margin-top: $space-l;
+}
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: row-reverse;
+}

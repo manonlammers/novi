@@ -10,7 +10,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = { CascadeType.DETACH })
     private Company company;
 
     public Long getId() {

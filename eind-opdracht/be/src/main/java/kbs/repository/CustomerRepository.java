@@ -1,6 +1,5 @@
 package kbs.repository;
 
-import kbs.model.Company;
 import kbs.model.Customer;
 import org.springframework.data.repository.CrudRepository;
 

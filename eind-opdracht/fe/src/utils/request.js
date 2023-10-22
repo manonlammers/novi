@@ -7,10 +7,9 @@ const defaultHeaders = {
 export const setTokenHeader = (value) => {
     /* eslint-disable-next-line */
     defaultHeaders['token'] = value
-
 }
 
-export const clearTokenheader = () => {
+export const clearTokenHeader = () => {
     /* eslint-disable-next-line */
     delete defaultHeaders['token']
 }

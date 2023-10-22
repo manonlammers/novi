@@ -26,7 +26,8 @@ function SignUp () {
         repeatPassword: ''
     })
 
-    const signUp = async (data) => {
+    const signUp = async (formData) => {
+        const data = { ...formData }
         setLoading(true)
         setError(null)
 
@@ -37,7 +38,7 @@ function SignUp () {
             if (response.status === 409) {
                 return setError(Errors.ERROR_ACCOUNT_ALREADY_EXISTS)
             }
-            if (response.status >= 400) {
+            if (response.status !== 200) {
                 return setError(Errors.ERROR_OOPS)
             }
 
