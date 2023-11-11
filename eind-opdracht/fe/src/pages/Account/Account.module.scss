@@ -1,0 +1,40 @@
+@import 'src/styles/_base.scss';
+
+.pageHeading {
+    margin-bottom: $space-l;
+
+    h6 {
+
+    }
+
+    p {
+
+    }
+}
+
+.form {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+}
+
+.avatarImage {
+    margin-bottom: $space-ml;
+}
+
+.submitWrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: right;
+}
+
+.submitError {
+    width: 100%;
+    color: $error-color;
+    text-align: center;
+    margin-bottom: $space-m !important;
+}
+
+.submitButton {
+    width: 100%;
+}

@@ -1,0 +1,28 @@
+@import 'src/styles/_base.scss';
+
+.form {
+    display: flex;
+    flex-flow: column;
+    width: 300px;
+}
+
+.submitWrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: right;
+}
+
+.submitError {
+    width: 100%;
+    color: $error-color;
+    text-align: center;
+    margin-bottom: $space-m !important;
+}
+
+.submitButton {
+    width: 100%;
+}
+
+.loginLink {
+    margin-top: $space-m;
+}

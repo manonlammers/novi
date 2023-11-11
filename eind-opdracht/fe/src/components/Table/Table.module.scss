@@ -1,0 +1,81 @@
+@import "src/styles/_base.scss";
+
+.tableComponent {
+    border-radius: 4px;
+    border: 1px solid $border-color;
+    background-color: white;
+    overflow: scroll;
+}
+
+.search {
+    margin: $space-m;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+.thead {
+    tr {
+        border-bottom: 1px solid $border-color;
+
+        th {
+            padding: $space-m;
+            text-align: left;
+            white-space: nowrap;
+        }
+    }
+}
+
+.tbody {
+    tr {
+        border-bottom: 1px solid $border-color;
+        cursor: pointer;
+
+        td {
+            padding: $space-m;
+            text-align: left;
+        }
+    }
+}
+
+.select {
+    margin: $space-m;
+}
+
+.label {
+    margin-left: $space-l;
+}
+
+.footer {
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: $space-s 0 $space-s $space-ml;
+}
+
+.button {
+    border: none;
+    padding: $space-s $space-sm;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: $space-xs;
+    margin-left: $space-xs;
+}
+
+.activeButton {
+    color: white;
+    background-color: $primary-color;
+}
+
+.inactiveButton {
+    background: white;
+}
+
+.delete {
+    color: red;
+    margin-right: $space-s;
+}

@@ -1,0 +1,45 @@
+@import "src/styles/_base.scss";
+
+.dropdown {
+    position: relative;
+}
+
+.trigger {
+    cursor: pointer;
+}
+
+.menuWrapper {
+    z-index: 10000;
+    position: absolute;
+}
+
+.menu {
+    margin: 0;
+    display: inline-block;
+    padding: $space-s 0;
+    border-radius: $border-radius;
+    background-color: white;
+    box-shadow: $popover-shadow;
+    list-style-type: none;
+}
+
+.menuItem {
+    width: 100%;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: $space-s $space-m;
+    cursor: pointer;
+
+    svg {
+        width: 16px;
+        height: 16px;
+        margin-right: $space-s;
+    }
+}
+
+.menuWrapper {
+    z-index: 1;
+    position: absolute;
+}

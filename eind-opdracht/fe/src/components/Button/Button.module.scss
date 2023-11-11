@@ -1,0 +1,46 @@
+@import "src/styles/_base.scss";
+
+.component {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-s $space-m;
+    border-radius: 4px;
+    text-align: center;
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color ease-in-out 150ms;
+}
+
+.primary {
+    background-color: $primary-color;
+    color: white;
+
+    &:hover {
+        background-color: rgba($primary-color, 0.9);
+    }
+    &:active {
+        background-color: rgba($primary-color, 1);
+    }
+}
+
+.secondary {
+    background-color: $secondary-color;
+    color: white;
+
+    &:hover {
+        background-color: rgba($secondary-color, 0.9);
+    }
+    &:active {
+        background-color: rgba($secondary-color, 1);
+    }
+}
+
+.disabled {
+    color: rgba(0, 0, 0, 0.26);
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+}

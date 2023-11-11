@@ -1,0 +1,47 @@
+@import 'src/styles/_base.scss';
+
+.pageHeading {
+    margin-bottom: $space-l;
+
+    h6 {
+
+    }
+
+    p {
+
+    }
+}
+
+.form {
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 0 $space-sm;
+
+    @include media('<tablet') {
+        flex-flow: row wrap;
+    }
+}
+
+.textField {
+    width: 100%;
+}
+
+.submitWrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: right;
+}
+
+.submitError {
+    width: 100%;
+    color: $error-color;
+    margin-bottom: $space-m !important;
+}
+
+.submitButton {
+    width: auto;
+}
