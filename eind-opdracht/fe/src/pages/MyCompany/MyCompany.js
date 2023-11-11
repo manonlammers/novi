@@ -96,7 +96,7 @@ function MyCompany () {
 
         try {
             const response = await companyAPI.updateOrCreateCompany(formValues)
-            if (response.status >= 400) {
+            if (response.status !== 200) {
                 return setError(Errors.ERROR_OOPS)
             }
 

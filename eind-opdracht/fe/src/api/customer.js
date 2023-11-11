@@ -3,7 +3,7 @@ import request from 'utils/request'
 export const createCustomer = (data) => {
     return request('customers', {
         method: 'POST',
-        body: data
+        data
     })
 }
 
@@ -21,7 +21,7 @@ export const getAllCustomersByCompanyId = (companyId) => {
 export const updateOrCreateCustomer = (data) => {
     return request('customers', {
         method: 'POST',
-        body: data
+        data
     })
 }
 

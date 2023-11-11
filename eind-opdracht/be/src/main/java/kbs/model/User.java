@@ -19,6 +19,13 @@ public class User {
     )
     private Company company;
 
+    @OneToOne(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        fetch = FetchType.LAZY
+    )
+    private File avatar;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
@@ -30,14 +37,20 @@ public class User {
 
     }
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     public User(
             Long id,
             Company company,
+            File avatar,
             String email,
             String password
     ) {
         this.id = id;
         this.company = company;
+        this.avatar = avatar;
         this.email = email;
         this.password = password;
     }
@@ -82,12 +95,21 @@ public class User {
         this.password = password;
     }
 
+    public File getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(File avatar) {
+        this.avatar = avatar;
+    }
+
     public static User fromDTO(UserDTO userDTO) {
         return new User(
-                userDTO.id,
-                userDTO.company != null ? Company.fromDTO(userDTO.company) : null,
-                userDTO.email,
-                userDTO.password
+            userDTO.id,
+            userDTO.company != null ? Company.fromDTO(userDTO.company) : null,
+            userDTO.avatar != null ? File.fromDTO(userDTO.avatar) : null,
+            userDTO.email,
+            userDTO.password
         );
     }
 }

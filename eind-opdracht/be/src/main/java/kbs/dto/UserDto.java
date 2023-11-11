@@ -10,14 +10,16 @@ import java.util.Optional;
 public class UserDTO {
     public Long id;
 
-    @Email(message = "Is vereist")
-    @NotEmpty(message = "Ongeldige invoer")
+    public CompanyDTO company;
+
+    public FileDTO avatar;
+
+    @Email(message = "invalid")
+    @NotEmpty(message = "is required")
     public String email;
 
-    @NotEmpty(message = "Is vereist")
+    @NotEmpty(message = "is required")
     public String password;
-
-    public CompanyDTO company;
 
     public String role;
 
@@ -28,14 +30,16 @@ public class UserDTO {
     public UserDTO(
             Long id,
             CompanyDTO company,
+            FileDTO avatar,
             String email,
             String password,
             String role
     ) {
         this.id = id;
+        this.company = company;
+        this.avatar = avatar;
         this.email = email;
         this.password = password;
-        this.company = company;
         this.role = role;
     }
 
@@ -44,11 +48,12 @@ public class UserDTO {
         Role role = firstRole.get();
 
         return new UserDTO(
-                user.getId(),
-                user.getCompany() != null ? CompanyDTO.fromCompany(user.getCompany()) : null,
-                user.getEmail(),
-                user.getPassword(),
-                role.getRolename()
+            user.getId(),
+            user.getCompany() != null ? CompanyDTO.fromCompany(user.getCompany()) : null,
+            user.getAvatar() != null ? FileDTO.fromFile(user.getAvatar()) : null,
+            user.getEmail(),
+            user.getPassword(),
+            role.getRolename()
         );
     }
 }

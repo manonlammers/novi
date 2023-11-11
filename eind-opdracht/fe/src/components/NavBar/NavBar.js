@@ -8,6 +8,7 @@ import { useUser } from '../UserProvider/UserProvider'
 
 function NavBar () {
     const { user, logout } = useUser()
+    const isCompanyConfigured = !user?.company?.isConfigured || false
 
     return (
         <div className={styles.navbar}>
@@ -17,12 +18,12 @@ function NavBar () {
                 )
                 : (
                     <>
-                        <Link to={Routes.CUSTOMERS}>KBS</Link>
-                        <Link to={Routes.MY_COMPANY}><span>Bedrijf</span></Link>
-                        <Link style={{ opacity: 0.5, pointerEvents: 'none' }} to={Routes.ACCOUNT}><span>Account</span></Link>
+                        <Link className={styles.link} to={Routes.CUSTOMERS} disabled={isCompanyConfigured}>KBS</Link>
+                        <Link className={styles.link} to={Routes.MY_COMPANY}><span>Bedrijf</span></Link>
+                        <Link className={styles.link} to={Routes.ACCOUNT}><span>Account</span></Link>
                     </>
                 )}
-            <a onClick={logout}>Uitloggen</a>
+            <a className={styles.link} onClick={logout}>Uitloggen</a>
         </div>
     )
 }

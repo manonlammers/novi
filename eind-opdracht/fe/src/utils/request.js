@@ -17,13 +17,17 @@ export const clearTokenHeader = () => {
 export default function request (path, args = {}) {
     const url = `${API_URL}/${path}`
     const options = {
-        headers: defaultHeaders,
+        headers: { ...defaultHeaders },
         method: args.method || 'GET'
     }
 
-    if (args.body) {
-        options.body = JSON.stringify(args.body)
+    if (args.data) {
+        options.body = JSON.stringify(args.data)
         options.headers['content-type'] = 'application/json'
+    }
+
+    if (args.formData) {
+        options.body = args.formData
     }
 
     return fetch(url, options)

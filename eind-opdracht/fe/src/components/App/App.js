@@ -8,7 +8,8 @@ import {
     CUSTOMERS,
     CUSTOMER,
     MY_COMPANY,
-    USERS
+    USERS,
+    ACCOUNT
 } from 'constants/Routes'
 import { ADMIN } from 'constants/UserRoles'
 import { useUser } from 'components/UserProvider/UserProvider'
@@ -21,6 +22,7 @@ import Components from 'pages/Components/Components'
 import Customers from 'pages/Customers/Customers'
 import Customer from 'pages/Customer/Customer'
 import Users from 'pages/Users/Users'
+import Account from 'pages/Account/Account'
 
 function App () {
     const navigate = useNavigate()
@@ -30,7 +32,8 @@ function App () {
     useEffect(() => {
         if (
             location.pathname === LOGIN ||
-            location.pathname === SIGN_UP
+            location.pathname === SIGN_UP ||
+            location.pathname === ACCOUNT
         ) {
             return
         }
@@ -58,6 +61,7 @@ function App () {
                 <Route path={CUSTOMER} element={<Customer />} />
                 <Route path={`${CUSTOMER}/:id`} element={<Customer/>} />
                 <Route path={USERS} element={<Users />} />
+                <Route path={ACCOUNT} element={<Account />} />
             </Route>
 
             <Route path="/components" element={<Components />} />

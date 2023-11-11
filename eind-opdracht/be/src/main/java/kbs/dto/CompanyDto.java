@@ -7,31 +7,31 @@ import org.springframework.util.StringUtils;
 public class CompanyDTO {
     public Long id;
 
-    @NotEmpty(message = "Name is required")
+    @NotEmpty(message = "is required")
     public String name;
 
-    @Email(message = "Invalid email address")
-    @NotEmpty(message = "Email address is required")
+    @Email(message = "invalid")
+    @NotEmpty(message = "is required")
     public String email;
 
-    @NotEmpty(message = "Phone number is required")
+    @NotEmpty(message = "is required")
     public String phone;
 
-    @NotEmpty(message = "Address is required")
+    @NotEmpty(message = "is required")
     public String address;
 
-    @NotEmpty(message = "Zip code is required")
+    @NotEmpty(message = "is required")
     public String zipCode;
 
-    @NotEmpty(message = "City is required")
+    @NotEmpty(message = "is required")
     public String city;
 
-    @NotNull(message = "KVK number is required")
-    @Max(value = 2147483647, message = "Invalid KVK number")
+    @NotNull(message = "is required")
+    @Max(value = 2147483647, message = "invalid")
     public String kvkNumber;
 
-    @NotNull(message = "VAT number is required")
-    @Max(value = 2147483647, message = "Invalid VAT number")
+    @NotNull(message = "is required")
+    @Max(value = 2147483647, message = "invalid")
     public String vatNumber;
 
     private Boolean isConfigured;

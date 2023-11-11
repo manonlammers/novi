@@ -55,7 +55,7 @@ public class AdminController {
 
     @DeleteMapping("/admin/delete-user/{id}")
     public ResponseEntity<Object> deleteUserByID(@PathVariable("id") Long id) {
-        User user = userService.getUserByID(id).get();
+        User user = userService.findById(id).get();
         Company company = user.getCompany();
         List<Customer> customers = customerService.findByCompanyId(company.getId());
         for (Customer c: customers) {

@@ -11,9 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("companies")
@@ -41,11 +38,7 @@ public class CompanyController {
         }
 
         Company company = companyService.save(Company.fromDTO(companyDTO));
-        URI uri = URI.create(ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/" + company.getId())
-                .toUriString());
-
-        return ResponseEntity.created(uri).body(CompanyDTO.fromCompany(company));
+        return ResponseEntity.ok().body(CompanyDTO.fromCompany(company));
     }
 }
 
