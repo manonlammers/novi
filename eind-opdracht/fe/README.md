@@ -1,4 +1,4 @@
-# KlantenbeheerSysteem FE
+# KlantenbeheerSysteem Frontend
 
 ## Requirements
 
